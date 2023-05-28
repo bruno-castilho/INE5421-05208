@@ -51,7 +51,8 @@ class Determination():
                 new_transitions = {}
                 new_states = [str(new_initial_state)]
                 new_symbols = af.getSymbols()
-                new_symbols.remove('&')
+                if '&' in new_symbols:
+                    new_symbols.remove('&')
                 new_final_states = []
                 
                 #Lista de estados encontrados.

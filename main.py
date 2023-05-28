@@ -3,6 +3,8 @@ import time
 from read import Read
 from write import Write
 from determination import Determination
+from GRtoAFND import GRtoAFND
+from AFDtoGR import AFDtoGR
 
 def clear(): 
     if name == 'nt': 
@@ -10,8 +12,6 @@ def clear():
 
     else: 
         system('clear') 
-
-
 
 
 options = '''
@@ -39,14 +39,14 @@ while True:
         print('Insira o arquivo  do AFND de entrada na pasta ./data e digite o nome do arquivo a baixo(-1 para voltar)')
         filename = input('Nome do arquivo: ')
         if filename != '-1':
-            AFND = Read.AFND(filename)
-            if AFND:
+            AF = Read.AF(filename)
+            if AF.getType() == '1':
                 clear()
                 print('############################## AFND de Entrada #############################')
-                AFND.print()
+                AF.print()
                 print()
                 print('############################## AFD de Saida #############################')
-                AFD = Determination.determinize(AFND)
+                AFD = Determination.determinize(AF)
                 AFD.adjust('q')
                 AFD.print()
                 while True: 
@@ -75,15 +75,44 @@ Opções:
 '''         )   
             chosen = input('Escolha uma das opções a cima: ')
             if chosen == '1':
-                pass
+                clear()
+                print('Insira o arquivo  do AFND de entrada na pasta ./data e digite o nome do arquivo a baixo(-1 para voltar)')
+                filename = input('Nome do arquivo: ')
+                if filename != '-1':
+                    AF = Read.AF(filename)
+                    if AF.getType() == '0':
+                        clear()
+                        print('############################## AFD de Entrada #############################')
+                        AF.print()
+                        print()
+                        print('############################## GR de Saida #############################')
+                        GR = AFDtoGR.generate(AF)
+                        GR.print()
+                        time.sleep(30)
+                        
+                    
             elif chosen == '2':
                 clear()
                 print('Insira o arquivo gramatica de entrada na pasta ./data e digite o nome do arquivo a baixo(-1 para voltar)')
                 filename = input('Nome do arquivo: ')
-                filename = 'GR1.txt'
                 if filename != '-1':
-                    Read.GRR(filename)
-                    time.sleep(60)
+                    GR = Read.GRR(filename)
+                    print('############################## GR de Entrada #############################')
+                    GR.print()
+                    print()
+                    print('############################## AFND de Saida #############################')
+                    AFND = GRtoAFND.generate(GR)
+                    AFND.print()
+                    while True: 
+                        answer = input('Deseja salvar o automato?(S/N): ')
+                        if answer == 'S' or answer == 's':
+                            filename = input('Digite um nome para o arquivo: ')
+                            Write.AF(AFND, filename)
+                            break
+                        elif answer == 'N' or answer == 'n':
+                            break
+                        else:
+                            print('Reposta invalida!')
             elif chosen == '3':
                 break
             else:
