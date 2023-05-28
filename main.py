@@ -17,15 +17,13 @@ def clear():
 options = '''
 Opções:
 1  - Conversão de AFND (com e sem ε) para AFD
-2  - Conversão de AFND (com e sem ε) para AFD
-3  - Conversão de AFND (com e sem ε) para AFD
-4  - Conversão de AFND (com e sem ε) para AFD
-5  - Conversão de AFND (com e sem ε) para AFD
-6  - Conversão de AFND (com e sem ε) para AFD
-7  - Conversão de AFND (com e sem ε) para AFD
-8  - Conversão de AFND (com e sem ε) para AFD
-9  - Conversão de AFND (com e sem ε) para AFD
-10 - Exit
+2  - Conversão de AFD para GR e de GR para AFND
+3  - Minimização de AFD
+4  - União e interseção de AFD
+5  - Conversão de ER para AFD
+6  - Reconhecimento de sentenças em AF
+7  - Reconhecimento de sentenças em AP
+8 - Exit
     '''
 
 
@@ -89,8 +87,6 @@ Opções:
                         GR = AFDtoGR.generate(AF)
                         GR.print()
                         time.sleep(30)
-                        
-                    
             elif chosen == '2':
                 clear()
                 print('Insira o arquivo gramatica de entrada na pasta ./data e digite o nome do arquivo a baixo(-1 para voltar)')
@@ -131,10 +127,6 @@ Opções:
     elif chosen == '7':
         break
     elif chosen == '8':
-        break
-    elif chosen == '9':
-        break
-    elif chosen == '10':
         break
     else:
         clear()
