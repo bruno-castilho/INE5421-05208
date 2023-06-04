@@ -2,7 +2,17 @@ from structures.AF import AF
 from structures.GR import GR
 
 class GRtoAFND():
-    def generate(GR: GR):
+    """
+    Uma classe para transformar GR em AFND.
+    
+    Métodos
+    -------
+    
+    transform(GR: GR) -> AF:
+        Retorna AFND.
+        
+    """
+    def transform(GR: GR):
         N = GR.getN()  
         T = GR.getT()
         if '&' in T:

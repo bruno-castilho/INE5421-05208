@@ -1,31 +1,54 @@
+
 class ER:
-    def __init__(self, nome, er):
-        self.nome = nome
-        self.er = er
+    """
+    Uma classe para representar uma expressão regular.
+    
+    ...
 
-        self.subistituiSimbulos()
-        self.colocarConcatenacao()
-        self.er += '.#'
+    Atributos
+    ---------
+    er : str
+         expressão regular em forma de string.
 
-    def subistituiSimbulos(self):
-        """Troca operações ? + para seus equivalentes
+    Métodos
+    -------
+    replaceSymbols() -> Str:
+        Troca operações ? e + para seus equivalentes
             a? = (a | &)
             a+ = a.a*
-        """
+            
+    reverseParenthesis(index: list) -> Str or None: 
+        Retorna uma sentença.
+        
+    putConcatenation(er: str) -> Str:
+        Retorna er com '.' entre os símbolos.
+    
+    getErAdapted() -> Str:
+        Retorna er com símbolos alterados, '.'  e '#' no final.
+        
+    print() -> None:
+        Imprime a er original.
+    """
+    
+    def __init__(self, er: str):
+        self.er = er
+        
+    def replaceSymbols(self):
         string = ''
         for i in range(len(self.er)):
             symbol = self.er[i]
             if symbol in ['+', '?']:
-                esp = self.parenteseReverse([i - 1])
+                esp = self.reverseParenthesis([i - 1])
                 if symbol == '+':
                     string = string[:-len(esp)] + esp + esp + '*'
                 else:
                     string = string[:-len(esp)] + "(" + esp + '|' + '&' ')'
             else:
                 string += symbol
-        self.er = string
+                
+        return string
 
-    def parenteseReverse(self, index):
+    def reverseParenthesis (self, index: list):
         if self.er[index[0]] != ')':
             return self.er[index[0]]
 
@@ -39,20 +62,24 @@ class ER:
                 if self.er[index[0]] == '(':
                     return string
 
-        return None
-
-    def colocarConcatenacao(self):
+    def putConcatenation(self, er: str):
         string = ''
-        for i in range(len(self.er) - 1):
-            symbol = self.er[i]
+        for i in range(len(er) - 1):
+            symbol = er[i]
             string += symbol
             if symbol not in ['|', '.', '(']:
-                if self.er[i + 1] not in ['|', '*', '.', ')']:
+                if er[i + 1] not in ['|', '*', '.', ')']:
                     string += '.'
 
-        string += self.er[-1]
+        string += er[-1]
 
-        self.er = string
+        return string
 
-    def getEr(self):
-        return self.er
+    def getErAdapted(self):
+        er = self.replaceSymbols()
+        er = self.putConcatenation(er)
+        er += '.#'
+        return er
+
+    def print(self):
+         print(self.er)

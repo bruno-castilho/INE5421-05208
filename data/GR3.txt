@@ -1,0 +1,7 @@
+q0,q1,q2,q3
+a,b
+q0
+q0-> aq1 | a | bq2 | b 
+q1-> aq1 | a | bq2 | b 
+q2-> aq3 | a | bq2 | b 
+q3-> aq3 | a | bq2 | b 

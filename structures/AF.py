@@ -1,6 +1,65 @@
 import pandas as pd
 
 class AF():
+    """
+    Uma classe para representar um autômato finito.
+    
+    ...
+
+    Atributos
+    ---------
+    type: Int
+        Tipo do automato.
+            0: AFD
+            1: AFND
+            
+        states: list
+            Lista de todos os estados.
+            
+        initial_state: str
+            Estado inicial.
+            
+        symbols: list
+           Lista de todos os símbolos.
+           
+        final_states: list
+            Lista de estados finais.
+            
+        transitions: dict
+            Transições do autômato.
+            
+    Métodos
+    -------
+    getType() -> Int:
+        Retorna tipo do autômato.
+            0: AFD
+            1: AFND
+            
+    getStates() -> List:
+        Retorna lista de estados.
+        
+    getInitialState() -> Str:
+        Retorna estado inicial.
+        
+    getSymbols() -> List:
+        Retorna lista de simbolos.
+        
+    getFinalStates() -> List:
+        Retorna lista de estados finais.
+        
+    getTransitions() -> Dict:
+        Retorna dicionário com todas as transições.
+        
+    getTransition(state: str, symbol: str) -> Str:
+        Retorna um estado.
+        
+    print() -> None:
+        Imprime autômato em forma de tabela.
+        
+    adjust(s: str) -> None:
+        Ajusta nome dos estados do autômato como 's''numero'.
+    """
+    
     def __init__(self, type: int, states: list, initial_state: str, symbols: list, final_states: list, transitions: dict):
         self.type = type
         self.states = states
@@ -27,8 +86,11 @@ class AF():
     def getTransitions(self):
         return self.transitions
     
-    def getTransition(self, state, symbol):
-        return self.transitions[state][symbol]
+    def getTransition(self, state: str, symbol: str):
+        try:
+            return self.transitions[state][symbol]
+        except:
+            return
     
     def print(self):
         data = {}
@@ -54,7 +116,7 @@ class AF():
         
         print(data)
                         
-    def adjust(self, s):
+    def adjust(self, s: str):
         map_states = {self.states[i]:f'{s}{i}' for i in range(len(self.states))}   
         states = [state for state in map_states.values()]  
         initial_state =  map_states[self.initial_state]

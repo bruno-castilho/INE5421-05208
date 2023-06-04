@@ -1,7 +1,19 @@
 from structures.AF import AF
-
+from structures.GR import GR
 
 class Write():
+    """
+    Uma classe para fazer escreve em arquivos.
+    
+    Métodos
+    -------
+    AF(AF: AF, filename: str) -> None:
+        Escreve o AF em um arquivo txt.
+    
+    GR(GR: GR, filename: str) -> None:
+        Escreve o AF em um arquivo txt.
+    
+    """
     def AF(AF: AF, filename: str):
         type = AF.getType()
         initial_state = AF.getInitialState()
@@ -50,5 +62,29 @@ class Write():
                             else:
                                 ref_arquivo.write(str(transitions[state][symbol][i]))
         
+        ref_arquivo.close()
         
-    
+    def GR(GR: GR, filename: str):
+        N = GR.getN()
+        T = GR.getT()
+        P = GR.getP()
+        S = GR.getS()
+ 
+        ref_arquivo = open(f'data/{filename}', "w")
+        ref_arquivo.write(','.join(N) + "\n")
+        ref_arquivo.write(','.join(T) + "\n")
+        ref_arquivo.write(S + "\n")
+        
+        for n in N:
+            str = n + '-> '
+            for p in P[n]:
+                str += p['t']
+                if 'n' in p.keys():
+                    str += p['n']
+                
+                str += ' | '
+                
+            ref_arquivo.write(str[0:-2] + "\n")
+        
+        
+        ref_arquivo.close()

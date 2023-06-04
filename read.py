@@ -1,9 +1,23 @@
 from structures.AF import AF
 from structures.GR import GR
+from structures.ER import ER
 
 class Read():
+    """
+    Uma classe para fazer leitura de arquivos.
     
-    def AF(filename):
+    Métodos
+    -------
+    AF(filename: str) -> AF:
+        Retorna AF.
+    
+    GR(filename: str) -> GR:
+        Retorna GR.
+    
+    ER(filename: str) -> ER:
+        Retorna ER.
+    """
+    def AF(filename: str):
         ref_arquivo = open(f'data/{filename}', "r")
         type = ref_arquivo.readline().rstrip('\n')
         initial_state = ref_arquivo.readline().rstrip('\n')
@@ -31,9 +45,7 @@ class Read():
         
         return AF(type, states, initial_state, symbols, final_states, transitions)
         
-
-    
-    def GRR(filename):
+    def GR(filename: str):
         ref_arquivo = open(f'data/{filename}', "r")
         N = ref_arquivo.readline().rstrip('\n').split(',')
         T = ref_arquivo.readline().rstrip('\n').split(',')
@@ -59,8 +71,10 @@ class Read():
                     
         ref_arquivo.close()
         return GR(N=N,T=T,S=S,P=P)
-        
-        
-        
-        
 
+    def ER(filename: str):
+        ref_arquivo = open(f'data/{filename}', "r")
+        er = ref_arquivo.readline().rstrip('\n') 
+        ref_arquivo.close()
+        
+        return ER(er)

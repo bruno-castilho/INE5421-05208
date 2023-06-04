@@ -1,6 +1,19 @@
 from structures.AF import AF
 
 class Determination():
+    """
+    Uma classe para determinizar um AFND.
+    
+    Métodos
+    -------
+    
+    eClosures(AF: AF) -> Dict:
+        Retorna  &-fechos.
+        
+    determinize(AF: AF) -> AF
+        Retorna AFND.
+        
+    """
     #Calcula &-fechos
     def eClosures(af: AF):
             closures = {}

@@ -1,8 +1,19 @@
 from structures.AF import AF
 from structures.GR import GR
 
+
 class AFDtoGR():
-    def generate(AF: AF):
+    """
+    Uma classe para transformar AFD em GR.
+    
+    Métodos
+    -------
+    
+    transform(AF: AF) -> AF:
+        Retorna GR.
+        
+    """
+    def transform(AF: AF):
         states = AF.getStates()
         initial_state = AF.getInitialState()
         symbols = AF.getSymbols()
