@@ -8,6 +8,7 @@ from AFDtoGR import AFDtoGR
 from ERtoAFD import ERtoAFD
 from Compute import Compute
 from Union import Union
+from Intersecao import Intersecao
 
 def clear(): 
     if name == 'nt': 
@@ -155,9 +156,6 @@ Opções:
              
                 filename2 = input('Nome do arquivo do AF2: ')
                 
-                filename1 = 'AFD.txt'
-                filename2 = 'AFD.txt'
-                
                 if filename2 != '-1':
                     AF1 = Read.AF(filename1)
                     AF2 = Read.AF(filename2)
@@ -203,7 +201,21 @@ Opções:
                         print('############################## AFD2 de Entrada #############################')
                         AF2.print()
                         print()
-                        time.sleep(30)
+                        print('############################## AFD de Saida #############################')
+                        AFD = Intersecao.transform(AF1, AF2)
+                        AFD.adjust('q')
+                        AFD.print()
+                        while True: 
+                            answer = input('Deseja salvar o AFD ?(S/N): ')
+                            if answer == 'S' or answer == 's':
+                                filename = input('Digite um nome para o arquivo: ')
+                                Write.AF(AFD, filename)
+                                break
+                            elif answer == 'N' or answer == 'n':
+                                break
+                            else:
+                                print('Reposta invalida!')
+                                time.sleep(2)
                             
             elif chosen == '3':
                 break

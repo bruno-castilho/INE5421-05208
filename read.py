@@ -19,11 +19,11 @@ class Read():
     """
     def AF(filename: str):
         ref_arquivo = open(f'data/{filename}', "r")
-        type = ref_arquivo.readline().rstrip('\n')
-        initial_state = ref_arquivo.readline().rstrip('\n')
-        final_states = ref_arquivo.readline().rstrip('\n').split(',')
-        symbols = ref_arquivo.readline().rstrip('\n').split(',')
-        states = ref_arquivo.readline().rstrip('\n').split(',')        
+        type = ref_arquivo.readline().rstrip('\n').strip()
+        initial_state = ref_arquivo.readline().rstrip('\n').strip()
+        final_states = ref_arquivo.readline().rstrip('\n').strip().split(',')
+        symbols = ref_arquivo.readline().rstrip('\n').strip().split(',')
+        states = ref_arquivo.readline().rstrip('\n').strip().split(',')        
         transitions = {}
             
         for state in states:
@@ -35,7 +35,7 @@ class Read():
                     transitions[state][symbol] = []
         
         for value in ref_arquivo:
-            value = value.rstrip('\n').split(',')
+            value = value.rstrip('\n').strip().split(',')
             if type == '0':
                 transitions[value[0]][value[1]] = value[2]
             if type == '1':
@@ -47,13 +47,13 @@ class Read():
         
     def GR(filename: str):
         ref_arquivo = open(f'data/{filename}', "r")
-        N = ref_arquivo.readline().rstrip('\n').split(',')
-        T = ref_arquivo.readline().rstrip('\n').split(',')
-        S = ref_arquivo.readline().rstrip('\n') 
+        N = ref_arquivo.readline().rstrip('\n').strip().split(',')
+        T = ref_arquivo.readline().rstrip('\n').strip().split(',')
+        S = ref_arquivo.readline().rstrip('\n').strip()
         P = {}
         
         for value in ref_arquivo:
-            string = value.rstrip('\n') 
+            string = value.rstrip('\n')
             string = string.replace(' ', '')
             list = string.split('->')
             H = list[0]
@@ -75,6 +75,7 @@ class Read():
     def ER(filename: str):
         ref_arquivo = open(f'data/{filename}', "r")
         er = ref_arquivo.readline().rstrip('\n') 
+        er = er.replace(' ','')
         ref_arquivo.close()
         
         return ER(er)

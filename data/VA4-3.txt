@@ -1,0 +1,11 @@
+1
+p
+r 
+&,a,b,c
+p,q,r
+p,&,p-q 
+p,b,q 
+p,c,r
+q,a,p
+q,b,r
+q,c,p-q

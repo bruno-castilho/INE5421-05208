@@ -1,0 +1,13 @@
+0
+S 
+S,A,B,C 
+a,b,c 
+S,A,B,C 
+S,a,A
+S,b,B 
+S,c,C 
+A,b,B 
+A,c,C 
+B,a,A 
+B,c,C
+C,c,C 

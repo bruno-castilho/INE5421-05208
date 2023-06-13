@@ -1,0 +1,13 @@
+1
+A
+X
+a,b
+A,B,C,D,X
+A,a,B-X
+A,b,A
+B,a,A
+B,b,B-X
+C,a,D
+C,b,C-X
+D,a,C-X
+D,b,D
