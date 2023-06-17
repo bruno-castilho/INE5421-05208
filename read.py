@@ -1,6 +1,7 @@
 from structures.AF import AF
 from structures.GR import GR
 from structures.ER import ER
+from structures.GLC import GLC
 
 class Read():
     """
@@ -79,3 +80,34 @@ class Read():
         ref_arquivo.close()
         
         return ER(er)
+
+    def GLC(filename: str):
+        texto = None
+        try:
+            arquivo = open(f'data/{filename}', "r")
+            texto = arquivo.read().split('\n')
+            arquivo.close()
+        except OSError:
+            arquivo.close()
+        nao_terminais = pegar_nao_terminais(texto)
+        terminais = pegar_terminais(texto)
+        producoes = pegar_producoes(texto)
+        simbolo_inicial = pegar_simbolo_inicial(texto)
+    
+        return GLC(nao_terminais, terminais, producoes, simbolo_inicial)
+
+def pegar_nao_terminais(texto):
+    indice = texto.index('*NaoTerminais')
+    return texto[indice+1].split()
+
+def pegar_terminais(texto):
+    indice = texto.index('*Terminais')
+    return texto[indice+1].split()
+
+def pegar_simbolo_inicial(texto):
+    indice = texto.index('*SimboloInicial')
+    return texto[indice+1]
+
+def pegar_producoes(texto):
+    indice = texto.index('*Producoes')
+    return texto[indice+1:-1]

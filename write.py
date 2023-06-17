@@ -1,5 +1,6 @@
 from structures.AF import AF
 from structures.GR import GR
+from structures.GLC import GLC
 
 class Write():
     """
@@ -88,3 +89,19 @@ class Write():
         
         
         ref_arquivo.close()
+
+    def GLC(GLC: GLC, filename: str):
+        t = '*GLC\n' + \
+            '*NaoTerminais\n' + \
+            f'{" ".join(GLC.get_nao_terminais())}\n' + \
+            '*Terminais\n' + \
+            f'{" ".join(GLC.get_terminais())}\n' + \
+            '*SimboloInicial\n' + \
+            f'{GLC.get_simbolo_inicial()}\n' + \
+            '*Producoes\n'
+        for simb, prods in GLC.get_producoes().items():
+            for prod in prods:
+                t += f'{simb}->{prod}\n'
+
+        with open(f'data/{filename}', "w") as f:
+            f.write(t)

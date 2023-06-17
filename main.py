@@ -9,6 +9,7 @@ from ERtoAFD import ERtoAFD
 from Compute import Compute
 from Union import Union
 from Intersecao import Intersecao
+from structures.GLC import fatorar, remover_recursao_esquerda_direta, remover_recursao_esquerda_indireta
 
 def clear(): 
     if name == 'nt': 
@@ -33,7 +34,6 @@ Opções:
 
 
 while True:
-    clear()
     print(f'{options}', end='\r')
     chosen = input('Escolha uma das opções acima: ')
     if chosen == '1':
@@ -285,9 +285,109 @@ Opções:
                     
                 input('Pressione enter para continuar')
         
+# leitura e edição de uma Gramática Livre de contexto (considerando terminais como um único símbolo minúsculo e não terminais maiúsculos (1pt) 
+# algoritmo para verificação de não determinismo e fatoração da gramática (1pt)
+# algoritmo para eliminação de recursão a esquerda (1pt)
+# Firsts e Follows (1pt)
+# construção da tabela do preditivo LL(1) e construção do algoritmo que simula a pilha para o reconhecimento de uma sentença de entrada (1pt)
     elif chosen == '7':
-        break
-    
+        while True:
+            print('''
+Opções:
+1  - Fatorar
+2  - Eliminar recursão a esquerda 
+3  - Reconhecimento de sentença
+4  - Voltar
+'''         )
+            chosen = input('Escolha uma das opções acima: ')
+            if chosen == '1':
+                clear()
+                print('Insira o arquivo da GLC na pasta ./data e digite o nome do arquivo abaixo(-1 para voltar)')
+                filename = input('Nome do arquivo: ')
+                glc = Read.GLC(filename)
+                print("Fatoração para a GLC abaixo:")
+                glc.display()
+                fatorar(glc)
+                print("Saída:")
+                glc.display()
+                answer = input('Deseja salvar a gramatica?(S/N): ')
+                if answer == 'S' or answer == 's':
+                    filename = input('Digite um nome para o arquivo: ')
+                    Write.GLC(glc, filename)
+                    break
+                elif answer == 'N' or answer == 'n':
+                    break
+
+            elif chosen == '2':
+                while True:
+                    print('''
+        Opções:
+        1  - Recursão direta
+        2  - Recursão indireta
+        3  - Voltar
+        '''         )
+                    chosen2 = input('Escolha uma das opções acima: ')
+                    if chosen2 == '1':
+                        print('Insira o arquivo da GLC na pasta ./data e digite o nome do arquivo abaixo(-1 para voltar)')
+                        filename = input('Nome do arquivo: ')
+                        glc = Read.GLC(filename)
+                        print("Removendo recursão direta da GLC abaixo:")
+                        glc.display()
+                        glc = remover_recursao_esquerda_direta(glc)
+                        print('Saída:')
+                        glc.display()
+                        answer = input('Deseja salvar a gramatica?(S/N): ')
+                        if answer == 'S' or answer == 's':
+                            filename = input('Digite um nome para o arquivo: ')
+                            Write.GLC(glc, filename)
+                            break
+                        elif answer == 'N' or answer == 'n':
+                            break
+                        break
+                    elif chosen2 == '2':
+                        print('Insira o arquivo da GLC na pasta ./data e digite o nome do arquivo abaixo(-1 para voltar)')
+                        filename = input('Nome do arquivo: ')
+                        glc = Read.GLC(filename)
+                        print("Removendo recursão indireta da GLC abaixo:")
+                        glc.display()
+                        glc = remover_recursao_esquerda_indireta(glc)
+                        print('Saída:')
+                        glc.display()
+                        print("Removendo recursão direta da GLC gerada pela remoção de indireta acima:")
+                        glc = remover_recursao_esquerda_direta(glc)
+                        print('Saída:')
+                        glc.display()
+                        answer = input('Deseja salvar a gramatica?(S/N): ')
+                        if answer == 'S' or answer == 's':
+                            filename = input('Digite um nome para o arquivo: ')
+                            Write.GLC(glc, filename)
+                            break
+                        elif answer == 'N' or answer == 'n':
+                            break
+                        break
+                    elif chosen2 == '3':
+                        break 
+                    else:
+                        clear()
+                        print('Escolha uma opção valida!')
+                        time.sleep(2)
+
+            elif chosen == '3':
+                print('Insira o arquivo da GLC na pasta ./data e digite o nome do arquivo abaixo(-1 para voltar)')
+                filename = input('Nome do arquivo: ')
+                glc = Read.GLC(filename)
+                sentenca = input('Sentença que deve ser reconhecida: ')
+                print("Reconhecimento de sentença para a GLC abaixo:")
+                glc.display()
+                print(f'Sentença: {sentenca}\nResultado: {glc.reconhecer(sentenca)}')
+                break       
+            elif chosen == '4':
+                break
+            else:
+                clear()
+                print('Escolha uma opção valida!')
+                time.sleep(2)
+
     elif chosen == '8':
         break
     else:
