@@ -1,0 +1,19 @@
+*GLC
+*NaoTerminais
+E T F P
+*Terminais
++ - * / ** ( ) id ct
+*SimboloInicial
+E
+*Producoes
+E->E+T
+E->E-T
+E->T
+T->T*F
+T->F
+T->T/F
+F->F**P
+F->P
+P->(E)
+P->id
+P->ct

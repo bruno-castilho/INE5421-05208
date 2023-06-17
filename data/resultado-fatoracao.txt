@@ -1,0 +1,15 @@
+*GLC
+*NaoTerminais
+S B D X_0 X_1
+*Terminais
+b c d $
+*SimboloInicial
+S
+*Producoes
+S->bX_1
+B->bX_0
+D->dD
+X_0->B
+X_0->&
+X_1->cD
+X_1->X_0cd

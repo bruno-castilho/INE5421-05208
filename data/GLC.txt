@@ -1,0 +1,18 @@
+*GLC
+*NaoTerminais
+P K V F C
+*Terminais
+c v f ; b e d
+*SimboloInicial
+P
+*Producoes
+P->KVC
+K->cK
+K->&
+V->vV
+V->F
+F->fP;F
+F->&
+C->bVCe
+C->d;C
+C->&
