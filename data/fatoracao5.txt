@@ -6,13 +6,13 @@ a c d e f
 *SimboloInicial
 S
 *Producoes
-S->AD
+S->AC
 S->BC
-A->aC
+A->aD
 A->cC
 B->aB
 B->dD
 C->eC
 C->eA
 D->fD
-D->AB
+D->CB
