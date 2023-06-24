@@ -1,6 +1,4 @@
-# INE5421-Linguagens-Formais-e-Compiladores
-
-### Trabalho: Manipulação de Linguagens Regulares e Linguagens Livres de Contexto
+# Trabalho: Manipulação de Linguagens Regulares e Linguagens Livres de Contexto
 1. Objetivo do Trabalho:
 O objetivo deste trabalho é a implementação dos algoritmos relacionados à manipulação
 de Linguagens Regulares e Livres de Contexto. Tais algoritmos são úteis na implementação de Geradores de Analisadores Léxicos e Sintáticos ou na implementação dos próprios
@@ -34,10 +32,88 @@ transição, a escolha do grupo;
 Edição)
 
 
-### Dependências
+## Dependências
+   Neste projeto foi utilizado a biblioteca pandas, para instalação execute o comando abaixo:
+  
+  ```
+  pip install pandas
+  ```
 
-### Tipos de arquivos de entrada
-
-### Execução
+## Tipos de arquivos de entrada
+  - Gramáticas Regulares
+    - Descreva a GR em um arquivo `.txt`, da seguinte forma:
+      1. Linha-1 - símbolos não terminais separados por `,`, exemplo: `A,B,C`
+      2. Linha-2 - símbolos terminais separados por `,`, exemplo: `a,b,c`
+      3. Linha-3 - símbolo inicial da gramática, exemplo `A`
+      4. Linha-4aN - Descreva as produções da seguinte forma `{cabeça de produção}-> prod1 | prod2`, exemplo: `A-> aA | bB | cC| a`
+    - Exemplo de arquivo:
+    ```txt
+    A,B,C
+    a,b,c
+    A
+    A-> aA | bB | cC| a 
+    B-> bB | cC | b 
+    C-> cC | c
+    ```
+  - Autômatos Finito
+    - Descreva o autômato em um arquivo `.txt`, da seguinte forma:
+      1. Linha-1 - Tipo do autômato, `0 para AFD e 1 para AFND`
+      2. Linha-2 - Estado inicial do autômato, exemplo: `q0`
+      3. Linha-3 - Todos os estados de aceitação do autômato separados por `,`, exemplo: `q1,q2`
+      4. Linha-4 - Todos o simbolos reconhecidos pelo autômato separados por `,`, exemplo: `a,b,c`
+      5. Linha-5 - Todos os estados do autômato separados por `,`, exemplo: `q0,q1,q2`
+      6. Linha-6aN - Transições do autômato, exemplo: `q0,a,q1` ou `q0,a,q1-q2`
+    - Exemplos de arquivo:
+    ```txt
+    0
+    q0
+    q1,q2
+    a,b,c
+    q0,q1,q2
+    q0,a,q1
+    q0,b,q2
+    q1,a,q1
+    q1,b,q0
+    q2,a,q0
+    q2,b,q2
+    ```
+    ```txt
+    1
+    q0
+    q1,q2
+    a,b,c
+    q0,q1,q2
+    q0,a,q1-q2
+    q0,b,q1-q2
+    q1,a,q1
+    q1,b,q0
+    q2,a,q0
+    q2,b,q2
+    ```
+    - Expressões Regulares
+        - Escreva a ER em um arquivo txt, com os seguintes critérios.
+          1. A Expressão deve conter apenas os operadores `*,+,|,?`
+          2. A Expressão deve estar contida na primeira linha do arquivo.
+        - Exemplo de arquivo:
+          ```txt
+          (a|b)*(ab)?(ab)(&|a)+
+          ```
+    - Gramáticas Livre de Contexto
+        
+## Execução
+  - Inputs
+    - Os arquivos de entrada devem estar contidos no diretório `./data`.
+  
+  - Outputs
+    - Os arquivos de saída irão ser alocados no diretório `./data`.
+   
+  - Run
+    - Para iniciar a aplicação execute um dos comandos abaixo, e siga as instruções que aparecerão.
+    ```
+    python3 main.py
+    ```
+    ou
+    ```
+    python main.py
 
 
