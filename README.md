@@ -91,14 +91,14 @@ Edição)
     q2,b,q2
     ```
     - Expressões Regulares
-        - Escreva a ER em um arquivo txt, com os seguintes critérios.
+        - Escreva a ER em um arquivo ```.txt```, com os seguintes critérios.
           1. A Expressão deve conter apenas os operadores `*,+,|,?`
           2. A Expressão deve estar contida na primeira linha do arquivo.
         - Exemplo de arquivo:
           ```txt
           (a|b)*(ab)?(ab)(&|a)+
           ```
-    - Gramáticas Livre de Contexto
+- Gramáticas Livre de Contexto
         
 ## Execução
   - Inputs
@@ -115,5 +115,6 @@ Edição)
     ou
     ```
     python main.py
+    ```
 
 
