@@ -9,6 +9,7 @@ from ERtoAFD import ERtoAFD
 from Compute import Compute
 from Union import Union
 from Intersecao import Intersecao
+from Minimization import Minimization
 from structures.GLC import fatorar, remover_recursao_esquerda_direta, remover_recursao_esquerda_indireta
 
 def clear(): 
@@ -134,7 +135,37 @@ Opções:
                 time.sleep(2)
 
     elif chosen == '3':
-        break
+        clear()
+        print('Insira o arquivo  do AFD de entrada na pasta ./data e digite o nome do arquivo abaixo(-1 para voltar)')
+        filename = input('Nome do arquivo: ')
+        if filename != '-1':
+            AFD = Read.AF(filename)
+            if AFD.getType() == '0':
+                clear()
+                print('############################## AFD de Entrada #############################')
+                AFD.print()
+                print()                
+                print('############################## AFD de Saida #############################')
+                AFD = Minimization.removeUnobtainables(AFD)
+                AFD = Minimization.removeDeadStates(AFD)
+                AFD = Minimization.removeEquivalents(AFD)
+                AFD.adjust('q')
+                AFD.print()
+                while True: 
+                    answer = input('Deseja salvar o automato?(S/N): ')
+                    if answer == 'S' or answer == 's':
+                        filename = input('Digite um nome para o arquivo: ')
+                        Write.AF(AFD, filename)
+                        break
+                    elif answer == 'N' or answer == 'n':
+                        break
+                    else:
+                        print('Reposta invalida!')
+                        time.sleep(2)
+            else:
+                clear()
+                print('AF invalido!')
+                time.sleep(2)
     
     elif chosen == '4':   
         while True:

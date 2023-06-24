@@ -3,63 +3,88 @@ from structures.AF import AF
 class Compute():
     
     """
-    Uma classe para computar uma sentença em um AF
+    Uma classe para computar um lexema em um AF
     
     Métodos
     -------
 
-    AFD(AF: AF, sentence: str) -> boolean:
-        Computa uma sentença em um AFD.
+    AFD(AF: AF, lexeme: str) -> boolean:
+        Computa uma lexema em um AFD.
     
-    AFND(AF: AF, sentence: str) -> boolean:
-        Computa uma sentença em um AFND.
+    AFND(AF: AF, lexeme: str) -> boolean:
+        Computa uma lexema em um AFND.
         
     """
-    def AFD(AF: AF, sentence: str):
+    def AFD(AF: AF, lexeme: str):
+        #Define o estado atual como estado inicial do autômato.
         current_state = AF.getInitialState()
-        while len(sentence) > 0:
-            if current_state:
+        #Enquanto o lexema não for totalmente consumido.
+        while len(lexeme) > 0:
+            #Se o estado atual for diferente de None.
+            if current_state != None:
+                #Imprime estado atual e lexema.
                 print(f'estado atual: {current_state}')
-                print(f'sentença: {sentence}')
+                print(f'lexema: {lexeme}')
                 print('/////////////////////')
-                current_state = AF.getTransition(current_state, sentence[0])
-                sentence = sentence[1:]
+                #Estado atual igual a transição de estado atual pelo símbolo do cabeçote.
+                current_state = AF.getTransition(current_state, lexeme[0])
+                #Consome lexema.
+                lexeme = lexeme[1:]
+            #Se não.
             else:
+                #Imprime estado atual e retorna false.
                 print(f'estado atual: Morto')
-                print(f'sentença: {sentence}')
+                print(f'lexema: {lexeme}')
                 return False
         
+        #Imprime estado atual e lexema igual a vazio.
         print(f'estado atual: {current_state}')
-        print(f'sentença: Ø')
-            
+        print(f'lexema: Ø')
+        
+        #Se o estado atual for um estado final, retorna True.
         if current_state in AF.getFinalStates():
             return True
-
+        
+        #Se não, retorna False.
         return False
     
-    def AFND(AF: AF, sentence: str):
+    def AFND(AF: AF, lexeme: str):
+        #Define estados atuais como uma lista contendo o estado inicial do autômato.
         current_states = [AF.getInitialState()]
-        while len(sentence) > 0:
+        #Enquanto o lexema não for totalmente consumido.
+        while len(lexeme) > 0:
+            #Imprime estados atuais e lexema.
             print(f'estados atuais: {current_states}')
-            print(f'sentença: {sentence}')
+            print(f'lexema: {lexeme}')
+            
+            #Se houver estados atuais na lista de estados atuais.
             if len(current_states) > 0:
                 print('/////////////////////')
+
+                #Faz a transição de todos os estados da lista de estados atuais pelo símbolo do cabeçote.
                 new_current_states = []
                 for state in current_states:
-                    states = AF.getTransition(state, sentence[0])
+                    states = AF.getTransition(state, lexeme[0])
                     if states:
                         new_current_states += states
                 
                 current_states = new_current_states
-                sentence = sentence[1:]
+                
+                #Consome lexema.
+                lexeme = lexeme[1:]
+                
+            #Se não retorna false.
             else:
                 return False
-        
+            
+        #Imprime estados atuais e lexema igual a vazio.
         print(f'estados atuais: {current_states}')
-        print(f'sentença: Ø')
+        print(f'lexema: Ø')
         
+        #Se na lista de estados atuais contêm um estado final, retorna true.
         for state in current_states:
             if state in AF.getFinalStates():
                 return True
-        
+            
+        #Se não retorna false.
         return False

@@ -30,19 +30,26 @@ class Intersecao():
         af2_final_states = AF2.getFinalStates()
         af2_transitions = AF2.getTransitions()
         
-        #Novo AF
-        i = 'i0'
-        s = [i] + af1_states + af2_states 
-        sy = sorted(list(set(af1_symbols) | set(af2_symbols) | set(['&'])))
+        #NOVO AFND
+        i = 'i0' #Estado inicial do autômato igual a 'i0'.
+        s = [i] + af1_states + af2_states #Lista de estados do automato igual a 'i0' + estados do AF1 + estados do AF2.
+        sy = sorted(list(set(af1_symbols) | set(af2_symbols) | set(['&']))) #Lista de símbolos igual a união de símbolos de AF1 e AF2.
+        
+        
+        #Define transições.
         tr = {}
         
+        #Para cada estado sem 's'.
         for state in s:
+            #Cria-se transições vazias para cada símbolo.
             tr[state] = {}
             for symbol in sy:
                 tr[state][symbol] = []
-                
+        
+        #Define uma transição partindo de 'i0' por '&' para os estados iniciais de AF1 e AF2.
         tr[i]['&'] = [af1_initial_state, af2_initial_state]
         
+        #Define transições do novo automato igual a transições de AF1 e AF2.
         for state in af1_states:
             for symbol in af1_symbols:
                 if af1_transitions[state][symbol]:
@@ -58,31 +65,32 @@ class Intersecao():
                     tr[state][symbol] = []
               
 
+        #DETERMINIZA AUTOMATO.
         closures = {}
         
         #Cria &-fecho para cada estado e o inseri no mesmo.
         for state in s:
             closures[state] = [state]
         
-        #Se tiver transições por &.
+        #Se houver transições por &.
         if '&' in sy:
             #Para cada estado.
             for state in closures.keys():
-                #Busca estados alcaçaveis por &.
+                #Busca estados alcançáveis por &.
                 attainable = tr[state]['&']
                 
-                #Cria dicionario com todos os estados como não visitados.
+                #Cria dicionário com todos os estados como não visitados.
                 visited_states = {a:False for a in s}
                 
                 #Marca estado como já visitado.
                 visited_states[state] = True
                 
-                #Enquando tiver estados alcaçaveis por &.
+                #Enquanto houver estados alcançáveis por &.
                 while len(attainable) != 0:
-                    #Pega um estado
+                    #Pega um estado.
                     s = attainable.pop()
                     
-                    #Se estado não foi visitado.
+                    #Se o estado não foi visitado.
                     if not visited_states[s]:
                         #Marca estado como visitado.
                         visited_states[s] = True
@@ -91,10 +99,11 @@ class Intersecao():
                         closures[state].append(s)
                         closures[state] = sorted(closures[state])
                         
-                        #Busca estados alcaçaveis por & a partir de s e adiciona na lista.
+                        #Busca estados alcançáveis por & a partir de s e adiciona na lista.
                         attainable += tr[s]['&']
         
-            #Novo automato.
+            
+            #Novo AFD.
             new_initial_state = str(closures[i])
             new_transitions = {}
             new_states = [str(new_initial_state)]
@@ -106,7 +115,7 @@ class Intersecao():
             #Lista de estados encontrados.
             states_found = [closures[i]]
             
-            #Enquanto lista de estados encontrados não estiver vazia.
+            #Enquanto a lista de estados encontrados não estiver vazia.
             while len(states_found) != 0:
                 #Pega um estado da lista.
                 s = states_found.pop(0)
@@ -114,12 +123,12 @@ class Intersecao():
                 #Cria transições a partir deste estado.
                 new_transitions[str(s)] = {}
                 for symbol in new_symbols:
-                    #Busca todos os etados alcaçados por 'symbol' a partir deste etado.
+                    #Busca todos os estados alcançados por 'symbol' a partir deste estado.
                     states = []
                     for state in s: 
                         states = sorted(list(set(states) | set(tr[state][symbol])))
 
-                    #Une &-fechos de todos os estados e gera um estado unico.
+                    #Une &-fechos de todos os estados e gera um estado único.
                     state = []
                     for t in states:
                         state = sorted(list(set(state) | set(closures[t])))
@@ -135,7 +144,7 @@ class Intersecao():
                         #Adiciona na lista de novos estados.
                         new_states.append(str(state))
                         
-                        #Adiciona na lista de estados encontados.
+                        #Adiciona na lista de estados encontrados.
                         states_found.append(state)
                         
             #Para cada novo estado.
@@ -145,8 +154,11 @@ class Intersecao():
                 state_with_list = state_with_list.replace(" ", "")
                 state_with_list = state_with_list.replace("'", "")
                 state_with_list = state_with_list.split(",")
-
+                
+                #Se todos os estados finais de AF1 e AF2 estiverem contidos em 'state'.
                 if len(set(af1_final_states) & set(state_with_list)) != 0 and len(set(af2_final_states) & set(state_with_list)) != 0:
+                    #Adiciona 'state' como um novo estado final.
                     new_final_states.append(state)      
-                        
+        
+        #Retorna autômato resultante.
         return AF(type=0, states=new_states, initial_state=new_initial_state, symbols=new_symbols, final_states=new_final_states, transitions=new_transitions)
