@@ -18,8 +18,8 @@ Os seguintes algoritmos devem ser implementados:
   Aho - seção 3.9)
   - Reconhecimento de sentenças em AF
   - Reconhecimento de sentenças em AP (via implementação de uma tabela Preditivo
-  - Além dos algoritmos relacionados a análise da sentença de entrada, devem
-  ser implementados os algoritmos para cálculo dos conjuntos First e Follow, Fatoração e Eliminação de Recursão à esquerda
+  LL(1)) - Além dos algoritmos relacionados a análise da sentença de entrada, devem
+  ser implementados os algoritmos para cálculo dos conjuntos First e Follow, Fatoração e Eliminação de Recursão à esquerda 
 
 
 Observações:
