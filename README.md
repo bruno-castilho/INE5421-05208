@@ -111,26 +111,26 @@ Edição)
       8. Linha-8 - Definição de produções: `*Producoes`
       9. Linha-9aN - Todas as produções, uma por linha: `P->KVC`
     - Exemplos de arquivo:
-    ```txt
-      *GLC
-      *NaoTerminais
-      P K V F C
-      *Terminais
-      c v f ; b e d
-      *SimboloInicial
-      P
-      *Producoes
-      P->KVC
-      K->cK
-      K->&
-      V->vV
-      V->F
-      F->fP;F
-      F->&
-      C->bVCe
-      C->d;C
-      C->&
-    ```
+      ```txt
+        *GLC
+        *NaoTerminais
+        P K V F C
+        *Terminais
+        c v f ; b e d
+        *SimboloInicial
+        P
+        *Producoes
+        P->KVC
+        K->cK
+        K->&
+        V->vV
+        V->F
+        F->fP;F
+        F->&
+        C->bVCe
+        C->d;C
+        C->&
+      ```
 ## Execução
   - Inputs
     - Os arquivos de entrada devem estar contidos no diretório `./data`.
