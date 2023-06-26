@@ -55,6 +55,7 @@ class GLC():
         # INDICE PARA AVALIAR A SENTENCA
         cabecote = 0
         while(True):
+            print(stack)
             topo = stack[len(stack)-1]
             if topo == sentenca[cabecote]:
                 # Aceite
@@ -125,6 +126,7 @@ def criar_tabela_de_analise(glc):
                     else:
                         print("Conflito em T[%s,%s]" % (non_terminal,b))
                         return None
+    print(analysis_table)
     return analysis_table
 
 
