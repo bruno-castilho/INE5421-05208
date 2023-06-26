@@ -47,14 +47,14 @@ Edição)
       3. Linha-3 - símbolo inicial da gramática, exemplo `A`
       4. Linha-4aN - Descreva as produções da seguinte forma `{cabeça de produção}-> prod1 | prod2`, exemplo: `A-> aA | bB | cC| a`
     - Exemplo de arquivo:
-    ```txt
-    A,B,C
-    a,b,c
-    A
-    A-> aA | bB | cC| a 
-    B-> bB | cC | b 
-    C-> cC | c
-    ```
+      ```txt
+      A,B,C
+      a,b,c
+      A
+      A-> aA | bB | cC| a 
+      B-> bB | cC | b 
+      C-> cC | c
+      ```
   - Autômatos Finito
     - Descreva o autômato em um arquivo `.txt`, da seguinte forma:
       1. Linha-1 - Tipo do autômato, `0 para AFD e 1 para AFND`
@@ -64,40 +64,40 @@ Edição)
       5. Linha-5 - Todos os estados do autômato separados por `,`, exemplo: `q0,q1,q2`
       6. Linha-6aN - Transições do autômato, exemplo: `q0,a,q1` ou `q0,a,q1-q2`
     - Exemplos de arquivo:
-    ```txt
-    0
-    q0
-    q1,q2
-    a,b,c
-    q0,q1,q2
-    q0,a,q1
-    q0,b,q2
-    q1,a,q1
-    q1,b,q0
-    q2,a,q0
-    q2,b,q2
-    ```
-    ```txt
-    1
-    q0
-    q1,q2
-    a,b,c
-    q0,q1,q2
-    q0,a,q1-q2
-    q0,b,q1-q2
-    q1,a,q1
-    q1,b,q0
-    q2,a,q0
-    q2,b,q2
-    ```
+      ```txt
+      0
+      q0
+      q1,q2
+      a,b,c
+      q0,q1,q2
+      q0,a,q1
+      q0,b,q2
+      q1,a,q1
+      q1,b,q0
+      q2,a,q0
+      q2,b,q2
+      ```
+      ```txt
+      1
+      q0
+      q1,q2
+      a,b,c
+      q0,q1,q2
+      q0,a,q1-q2
+      q0,b,q1-q2
+      q1,a,q1
+      q1,b,q0
+      q2,a,q0
+      q2,b,q2
+      ```
 - Expressões Regulares
   - Escreva a ER em um arquivo ```.txt```, com os seguintes critérios.
     1. A Expressão deve conter apenas os operadores `*,+,|,?`
     2. A Expressão deve estar contida na primeira linha do arquivo.
   - Exemplo de arquivo:
-  ```txt
-  (a|b)*(ab)?(ab)(&|a)+
-  ```
+    ```txt
+    (a|b)*(ab)?(ab)(&|a)+
+    ```
 
 - Gramáticas Livre de Contexto
     - Descreva a GR em um arquivo `.txt`, da seguinte forma:        
@@ -140,12 +140,12 @@ Edição)
    
   - Run
     - Para iniciar a aplicação execute um dos comandos abaixo, e siga as instruções que aparecerão.
-    ```
-    python3 main.py
-    ```
-    ou
-    ```
-    python main.py
-    ```
+      ```
+      python3 main.py
+      ```
+      ou
+      ```
+      python main.py
+      ```
 
 
