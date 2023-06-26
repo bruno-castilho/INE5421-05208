@@ -100,7 +100,37 @@ Edição)
   ```
 
 - Gramáticas Livre de Contexto
-        
+    - Descreva a GR em um arquivo `.txt`, da seguinte forma:        
+      1. Linha-1 - Definição da gramática, `*GLC`
+      2. Linha-2 - Definição de não terminais: `*NaoTerminais`
+      3. Linha-3 - Todos os não terminais separados por ` ` (espaço em branco), exemplo: `P K V`
+      4. Linha-4 - Definição de terminais: `*Terminais`
+      5. Linha-5 - Todos os terminais separados por ` ` (espaço em branco), exemplo: `c v f`
+      6. Linha-6 - Definição de simbolo inicial: `*SimboloInicial`
+      7. Linha-7 - Simbolo inicial, exemplo: `P`
+      8. Linha-8 - Definição de produções: `*Producoes`
+      9. Linha-9aN - Todas as produções, uma por linha: `P->KVC`
+    - Exemplos de arquivo:
+    ```txt
+      *GLC
+      *NaoTerminais
+      P K V F C
+      *Terminais
+      c v f ; b e d
+      *SimboloInicial
+      P
+      *Producoes
+      P->KVC
+      K->cK
+      K->&
+      V->vV
+      V->F
+      F->fP;F
+      F->&
+      C->bVCe
+      C->d;C
+      C->&
+    ```
 ## Execução
   - Inputs
     - Os arquivos de entrada devem estar contidos no diretório `./data`.
