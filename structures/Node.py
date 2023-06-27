@@ -54,11 +54,11 @@ class Node:
     calculateFirstpos() -> List:
         Calcula firspos.
     
-    followpos(followpos: dict) -> None:
+    calculateFollowpos(followpos: dict) -> None:
         Calcula followpos em um nó.
         
-    calculateFollowpos(followpos: dict) -> None:
-        Calcula todos os followpos.
+    followpos(followpos: dict) -> None:
+        #Percorre a árvore em profundidade, fazendo o cálculo de todos os Followpos.
         
     print() -> None:
         Imprime árvore a partir de um nó.
@@ -67,11 +67,19 @@ class Node:
         self.symbol = symbol
         self.left_child = left_child
         self.right_child = right_child
+        
+        #Verifica se nó é anulável.
         self.nullable = self.checkNullable() 
-        if n != None and not self.nullable: 
+        
+        #Se nó for folha e não anulável.
+        if n != None and not self.nullable:
+            #Firstpost e Lastpos igual uma lista contendo N. 
             self.firstpos = [n[0]]
             self.lastpos = [n[0]]
+            #N += 1 para próximo nó folha.
             n[0] += 1
+            
+        #Se não, calcula Firstpos e Lastpos(se não for símbolo operando ambos serão uma lista vazia, ou seja se for '&' será vazio).
         else:
             self.firstpos = self.calculateFirstpos()
             self.lastpos = self.calculateLastpos()
@@ -92,70 +100,106 @@ class Node:
         return self.right_child
     
     def checkNullable(self):
+        #Se nó for '&' ou '*'.
         if self.symbol == '&' or self.symbol == '*':
+            #É anulável.
             return True
+        #Se nó for '|'.
         elif self.symbol == '|':
+            #Se filho esquerdo ou direito for anulável, nó é anulável.
             return self.left_child.isNullable()  or self.right_child.isNullable()
+        
+        #Se nó for '.'.
         elif self.symbol == '.':
+            #Se filho esquerdo e direito forem anuláveis, nó é anulável.
             return self.left_child.isNullable()  and self.right_child.isNullable()
+        #Se não.
         else:
+            #Não é anulável.
             return False
 
-    def calculateLastpos(self):
-        # Calcula lastpos
+    def calculateLastpos(self): 
+        #Se nó for operando 'ou'.
         if self.symbol == '|':
+            #Lastpos igual a União de Lastpos dos filhos.
             return sorted(list(set(self.left_child.getLastpos()) | set(self.right_child.getLastpos())))
+
+        #Se nó for operando 'concatenação'.
         elif self.symbol == '.':
+            #Se filho direito for anulavel.
             if self.right_child.isNullable():
+                #Lastpos igual a União de Lastpos dos filhos.
                 return sorted(list(set(self.left_child.getLastpos()) | set(self.right_child.getLastpos())))
             else:
+                #Lastpos igual a Lastpos do filho direito.
                 return self.right_child.getLastpos()
+                 
+        #Se nó for operando 'fecho'.
         elif self.symbol == '*':
+            #Lastpos igual a Lastpos do filho esquerdo(único).
             return self.left_child.getLastpos()
+        #Se não
         else:
+            #Retorna vazio.
             return []
         
     def calculateFirstpos(self):
-        # Calcula firstpos
+        #Se nó for operando 'ou'.
         if self.symbol == '|':
+            #Firstpos igual a União de Firstpos dos filhos.
             return sorted(list(set(self.left_child.getFirstpos()) | set(self.right_child.getFirstpos())))
+        
+        #Se nó for operando 'concatenação'.
         elif self.symbol == '.':
             if self.left_child.isNullable():
+                #Firstpos igual a União de Firstpos dos filhos.
                 return sorted(list(set(self.left_child.getFirstpos()) | set(self.right_child.getFirstpos())))
             else:
+                #Firstpost igual a Firstpost do filho esquerdo.
                 return self.left_child.getFirstpos()
+        
+        #Se nó for operando 'fecho'.
         elif self.symbol == '*':
+            #Firstpos igual a Firstpos do filho esquerdo(único).
             return self.left_child.getFirstpos()
+        
+        #Se não
         else:
+            #Retorna vazio.
             return []
  
-    def followpos(self, followpos: dict):
+    def calculateFollowpos(self, followpos: dict):
+        #Se nó for 'fecho'
         if self.symbol == '*':
+            #Fistpos do nó está em todos os Followpos dos Lastpos do nó.
             firstpos = self.firstpos
             lastpos = self.lastpos
             for l in lastpos:
                 followpos[l] = sorted(list(set(followpos[l]) | set(firstpos)))
         
+        #Se nó for 'concatenação'.
         if self.symbol == '.':
+            #Firstpos do filho direito do nó estão nos Followpos dos Lastpos do filho esquerdo do nó.
             firstpos = self.right_child.getFirstpos()
             lastpos = self.left_child.getLastpos()
             for l in lastpos:
                 followpos[l] = sorted(list(set(followpos[l]) | set(firstpos)))
             
-    def calculateFollowpos(self, followpos: dict):
+    def followpos(self, followpos: dict):
+        #Percorre a árvore em profundidade, fazendo o cálculo de todos os Followpos.
         if self.left_child == None and self.right_child == None:
             return
         elif self.left_child == None:
-            self.right_child.calculateFollowpos(followpos)
+            self.right_child.followpos(followpos)
             return 
         elif self.right_child == None:
-            self.left_child.calculateFollowpos(followpos)
-            self.followpos(followpos)
+            self.left_child.followpos(followpos)
+            self.calculateFollowpos(followpos)
             return
         else:
-            self.left_child.calculateFollowpos(followpos)
-            self.right_child.calculateFollowpos(followpos)
-            self.followpos(followpos)
+            self.left_child.followpos(followpos)
+            self.right_child.followpos(followpos)
+            self.calculateFollowpos(followpos)
             return
 
     def print(self):

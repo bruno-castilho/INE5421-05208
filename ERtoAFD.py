@@ -72,8 +72,8 @@ class ERtoAFD():
             #Cria uma lista vazia.
             followpos[key] = []
         
-        #Calcula followpos.
-        tree.calculateFollowpos(followpos)
+        #Calcula todos os followpos.
+        tree.followpos(followpos)
         
         #AUTÔMATO RESULTANTE.
         initial_state = str(tree.getFirstpos()) #Define o estado inicial do autômato como firtpost do nó raiz da árvore sintática.
