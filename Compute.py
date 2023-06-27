@@ -21,7 +21,7 @@ class Compute():
         #Enquanto o lexema não for totalmente consumido.
         while len(lexeme) > 0:
             #Se o estado atual for diferente de None.
-            if current_state != None and lexeme[0]:
+            if current_state != None:
                 #Imprime estado atual e lexema.
                 print(f'estado atual: {current_state}')
                 print(f'lexema: {lexeme}')

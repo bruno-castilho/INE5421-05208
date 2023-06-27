@@ -291,9 +291,9 @@ Opções:
                 print('############################## AFD de Entrada #############################')
                 AF.print()
                 print()
-                sentence = input('Digite o lexema que deseja computar: ')
+                lexeme = input('Digite o lexema que deseja computar: ')
                 print('############################## Computando... #############################')
-                result = Compute.AFD(AF, sentence)
+                result = Compute.AFD(AF, lexeme)
                 if result == True:
                     print('Lexema valido!')
                 else:
@@ -306,9 +306,9 @@ Opções:
                 print('############################## AFND de Entrada #############################')
                 AF.print()
                 print()
-                sentence = input('Digite o lexema que deseja computar: ')
+                lexeme = input('Digite o lexema que deseja computar: ')
                 print('############################## Computando... #############################')
-                result = Compute.AFND(AF, sentence)
+                result = Compute.AFND(AF, lexeme)
                 if result == True:
                     print('Lexema valido!')
                 else:
