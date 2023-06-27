@@ -33,11 +33,19 @@ Edição)
 
 
 ## Dependências
-   Neste projeto foi utilizado a biblioteca pandas, para instalação execute o comando abaixo:
-  
-  ```
-  pip install pandas
-  ```
+  - Projeto desenvolvido na linguagem de programação python, para a instalação do interpretador execute o seguinte comando:
+    ```
+    apt-get install python3
+    ```
+  - Neste projeto foi utilizado a biblioteca pandas, para instalação siga os passos abaixo:
+    1. Instale o gerenciador de pacotes do python.
+       ```
+       apt-get install python3-pip
+       ```
+    2. Instale a biblioteca pandas.
+        ```
+        pip3 install pandas
+        ```
 
 ## Tipos de arquivos de entrada
   - Gramáticas Regulares
@@ -147,5 +155,3 @@ Edição)
       ```
       python main.py
       ```
-
-
