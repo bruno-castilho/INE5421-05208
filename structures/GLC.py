@@ -126,7 +126,22 @@ def criar_tabela_de_analise(glc):
                     else:
                         print("Conflito em T[%s,%s]" % (non_terminal,b))
                         return None
-    print(analysis_table)
+    print("===== TABELA DE ANALISE =====")
+    columns = list(analysis_table.keys())
+    rows = list(analysis_table[columns[1]].keys())
+
+    # Exibir cabeçalho da tabela invertida
+    print('{:<4}'.format(''), end='')  # Espaço em branco no canto superior esquerdo
+    for row in rows:
+        print('{:<4}'.format(row), end='')
+    print()
+
+    # Exibir linhas da tabela invertida
+    for col in columns[1:]:
+        print('{:<4}'.format(col), end='')
+        for row in rows:
+            print('{:<4}'.format(analysis_table[col][row]), end='')
+        print()
     return analysis_table
 
 
@@ -286,7 +301,7 @@ def calculate_follows(glc, firsts=None):
 def first_of_sequence(beta, firsts, symbols):
     first_sequence = set()
     for i in range(len(symbols)):
-        print(firsts[symbols[i]])
+        # print(firsts[symbols[i]])
         if '&' not in firsts[symbols[i]]:
             first_sequence.update(firsts[symbols[i]])
             break
@@ -301,7 +316,7 @@ def fatorar(glc):
     for nao_terminal in glc.nao_terminais:
         j = resolver_nao_determinismo_direto(glc, nao_terminal, j)
     # SE ENCONTRAR UMA NAO DETERMINISMO INDIRETO, RESOLVA-O
-    print(glc.producoes)
+    # print(glc.producoes)
     contador = 0
     for nao_terminal in glc.nao_terminais:
         if contador > 10:
@@ -447,7 +462,7 @@ def encontrar_nao_determinismo_indireto(glc, nao_terminal):
                 if par not in relacoes:
                     relacoes.append(par)
     (existe_nao_determinismo_direto, lista_filtrada) = verificar_existencia_nao_determinismo_direto(glc, producoes_temporarias)
-    print(lista_filtrada)
+    # print(lista_filtrada)
     if existe_nao_determinismo_direto:
         # SUBSTITUINDO AS PRODUCOES ANTIGAS PELAS TEMPORARIAS
         for par in relacoes:
