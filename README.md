@@ -1,5 +1,6 @@
+<center>
 <img align="center" src="https://portalpadrao.ufma.br/ineof/imagens/logo-ufsc.png/@@images/84622670-9bb9-4fee-9460-dcfd76b7e33f.png" alt="UFSC logo" width="200" height="250">
-
+</center>
 </br>
 
 # Trabalho: Manipulação de Linguagens Regulares e Linguagens Livres de Contexto
