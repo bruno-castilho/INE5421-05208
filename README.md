@@ -285,7 +285,7 @@ Os seguintes algoritmos devem ser implementados:
 ## Modelagem
   - Para a modelegem foi feito um diagrama UML.
 
-<diagrama UML>
+![Alt text](Projeto LF.jpg?raw=true "Title")
 
 ## Tipos de arquivos de entrada
   - Gramáticas Regulares
