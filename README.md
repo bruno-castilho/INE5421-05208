@@ -58,7 +58,7 @@ Os seguintes algoritmos devem ser implementados:
         pip3 install pandas
         ```
 
-##Estrutura de dados
+#Estrutura de dados
   - As estruturas utilizadas para o funcionamento do projeto foram separadas no diretório "structures", elas são explicadas a seguir:
     - AF, uma classe na qual representa automatos finitos, no qual posui atributos de estados, estado inicial, estado final, tipo (AFD ou AFND), simbolos e transições.
     - ER, uma classe representando expressões regulares, o único atributo dela é "er", no qual é uma string que representa a expressão.
