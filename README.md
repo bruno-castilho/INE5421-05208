@@ -71,8 +71,8 @@ Os seguintes algoritmos devem ser implementados:
 
       ```
       Tipo: {
-		0 - AFD
-      		1 - AFND
+	0 - AFD
+      	1 - AFND
       }
       ```
       O tipo de um autômato finito pode variar, e a forma como cada um é tratado e as funções que o acompanham são distintas, logo ocorreu a separação em "type" = 0 para deterministico e  "type" = 1 para não deterministico.
