@@ -1,4 +1,85 @@
 class GLC():
+    """
+    Uma classe para representar uma Gramática Livre de Contexto.
+    
+    ...
+
+    Atributos
+    ---------
+    nao_terminais : List
+        Lista de não terminais.
+        
+    terminais : List
+        Lista de terminais.
+    
+    producoes : List
+        Lista que mapeia as produções.
+    
+    simbolo_inicial : Str
+        Símbolo inicial da gramática.
+
+    mapeamento : Dict
+        Dicionário que mapea as produções.
+
+    tabela_analise : Multi List
+        Tabela criada para análise da gramática.
+    
+    Métodos
+    -------
+    get_nao_terminais() -> List
+
+    get_terminais() -> List
+
+    get_simbolo_inicial() -> Str
+
+    get_producoes() -> List
+
+    _arrumar_producoes()
+    
+    display()
+
+    reconhecer()
+
+    criar_tabela_de_analise()
+
+    isLL1()
+
+    init_analysis_table()
+
+    map_productions()
+
+    calculate_firsts()
+
+    split_into_symbols()
+
+    get_first_symbol()
+
+    calculate_follows()
+
+    first_of_sequence()
+
+    fatorar()
+
+    remover_recursao_esquerda_indireta()
+
+    remover_recursao_esquerda_direta()
+
+    pegar_primeiro_simbolo()
+
+    verificar_existencia_nao_determinismo_direto()
+
+    resolver_nao_determinismo_direto()
+
+    encontrar_nao_determinismo_indireto()
+
+    subir_producoes()
+
+    pegar_terminais_a_esquerda()
+
+    filtrar_lista_de_terminais()
+
+    mapear_terminais()
+    """
     def __init__(self, nao_terminais, terminais, producoes, simbolo_inicial):
         self.nao_terminais = nao_terminais
         self.terminais = terminais
