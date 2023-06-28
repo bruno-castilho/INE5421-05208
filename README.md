@@ -58,6 +58,14 @@ Os seguintes algoritmos devem ser implementados:
         pip3 install pandas
         ```
 
+##Estrutura de dados
+  - As estruturas utilizadas para o funcionamento do projeto foram separadas no diretório "structures", elas são explicadas a seguir:
+    - AF, uma classe na qual representa automatos finitos, no qual posui atributos de estados, estado inicial, estado final, tipo (AFD ou AFND), simbolos e transições.
+    - ER, uma classe representando expressões regulares, o único atributo dela é "er", no qual é uma string que representa a expressão.
+    - GLC, uma classe que representa gramáticas livres de contexto, possuindo atributos como nao terminais, terminais, producoes, simbolo inicial, mapeamento e tabela de análise.
+    - GR, uma classe na qual representa gramáticas regulares, seus atibutos são separados em uma lista de não terminais, uma lista de terminais, um dicionário que mapeia produções de cada não terminal e um símbolo inicial da gramática.
+    - Node, uma classe que representa um node utilizado principalmente formação da árvore de derivação.
+
 ## Tipos de arquivos de entrada
   - Gramáticas Regulares
     - Descreva a GR em um arquivo `.txt`, da seguinte forma:
