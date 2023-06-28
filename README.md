@@ -1,9 +1,13 @@
 <p align="center">
 <img align="center" src="https://portalpadrao.ufma.br/ineof/imagens/logo-ufsc.png/@@images/84622670-9bb9-4fee-9460-dcfd76b7e33f.png" alt="UFSC logo" width="200" height="250">
-</p>
-</br>
 
 # Trabalho: Manipulação de Linguagens Regulares e Linguagens Livres de Contexto
+</p>
+
+
+</br>
+
+
 1. Objetivo do Trabalho:
 O objetivo deste trabalho é a implementação dos algoritmos relacionados à manipulação
 de Linguagens Regulares e Livres de Contexto. Tais algoritmos são úteis na implementação de Geradores de Analisadores Léxicos e Sintáticos ou na implementação dos próprios
