@@ -70,24 +70,34 @@ Os seguintes algoritmos devem ser implementados:
     ## AF
 
       ```
-      type: {
+      Tipo: {
 	0 - AFD
       	1 - AFND
       }
       ```
       O tipo de um autômato finito pode variar, e a forma como cada um é tratado e as funções que o acompanham são distintas, logo ocorreu a separação em "type" = 0 para deterministico e  "type" = 1 para não deterministico.
       ```
-      transições: {
+      Transições: {
       ‘estado’: {‘simbolo’:’estado’}
       }
       ```
       Para todos os estados, cria-se uma chave em um dicionário que aponta para outro dicionário contendo chaves para todos os simbolos do automato, apontando para o estado alcançado pela transição, no caso de não determinísticos uma lista de estados não alcançados. Estados mortos em AFD são representados por None e nos AFND como uma lista vazia.
-      
-
-    ## ER
     
     ## GLC
-   
+    
+     ```
+    Produções: {
+	  ‘Cabeça de produção’: [{‘n’, ‘t’}]
+    }
+    ```
+    Para todas as cabeças de produção, cria-se uma chave em um dicionario que aponta para uma lista, contendo dicionários para cada produção, com duas chaves ‘n’ que aponta para o não terminal da produção,  e ‘t’ que aponta para o terminal. Caso a produção seja apenas um terminal, o dicionario tera apenas a chave ‘t’ apontando para o mesmo.
+    ```
+    Tabela de Análise: {
+	‘Tabela de análise’[‘Não Terminal’][‘Terminal’] = ‘Valor’
+    }
+    ```
+    A tabela de análise é um dicionário, criado para realizar análises referentes ao comportamento de não terminais com terminais, logo para cada relacionamento é atribuido um valor, então usada para avaliar sentenças.
+    
     ## GR
     ```
     Produções: {
@@ -95,9 +105,7 @@ Os seguintes algoritmos devem ser implementados:
     }
     ```
     Para todas as cabeças de produção, cria-se uma chave em um dicionario que aponta para uma lista, contendo dicionários para cada produção, com duas chaves ‘n’ que aponta para o não terminal da produção,  e ‘t’ que aponta para o terminal. Caso a produção seja apenas um terminal, o dicionario tera apenas a chave ‘t’ apontando para o mesmo.
-    
-    ## Node
-    
+
     
 ## Modelagem
   - Para a modelegem foi feito um diagrama.
