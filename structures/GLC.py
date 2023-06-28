@@ -1,4 +1,33 @@
 class GLC():
+    """
+    Uma classe para representar uma Gramática Livre de Contexto.
+    
+    ...
+
+    Atributos
+    ---------
+    nao_terminais : List
+        Lista de não terminais.
+        
+    terminais : List
+        Lista de terminais.
+    
+    producoes : List
+        Lista que mapeia as produções.
+    
+    simbolo_inicial : Str
+        Símbolo inicial da gramática.
+
+    mapeamento : Dict
+        Dicionário que mapea as produções.
+
+    tabela_analise : Multi List
+        Tabela criada para análise da gramática.
+    
+    Métodos
+    -------
+    
+    """
     def __init__(self, nao_terminais, terminais, producoes, simbolo_inicial):
         self.nao_terminais = nao_terminais
         self.terminais = terminais
