@@ -80,6 +80,12 @@ Os seguintes algoritmos devem ser implementados:
     ## GLC
    
     ## GR
+    ```
+    Produções: {
+	  ‘Cabeça de produção’: [{‘n’, ‘t’}]
+    }
+    ```
+    Para todas as cabeças de produção, cria-se uma chave em um dicionario que aponta para uma lista, contendo dicionários para cada produção, com duas chaves ‘n’ que aponta para o não terminal da produção,  e ‘t’ que aponta para o terminal. Caso a produção seja apenas um terminal, o dicionario tera apenas a chave ‘t’ apontando para o mesmo.
     
     ## Node
     
