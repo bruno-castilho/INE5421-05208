@@ -10,7 +10,7 @@ CURSO DE GRADUAÇÃO EM CIÊNCIAS DA COMPUTAÇÃO
 </br>
 </br>
 </br>
-<h3>
+<h3 align="center">
   Gabriel Dutra, Bruno da Silva Castilho e Rafael Begnini de Castilhos
 </h3>
 
