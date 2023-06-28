@@ -90,7 +90,7 @@ Os seguintes algoritmos devem ser implementados:
 	  ['P->KVC', 'K->cK', 'K->&', 'V->vV', 'V->F', 'F->fP;F', 'F->&', 'C->bVCe', 'C->d;C', 'C->&']
     }
     ```
-    As produções são armazenadas como strings em uma lista, na qual o início é a cabeça de pordução, logo após é o símbolo "->", então uma formação da cabeça.  
+    As produções são armazenadas como strings em uma lista, na qual o início é a cabeça de produção, logo após é o símbolo "->", então uma formação da cabeça.  
     ```
     Tabela de Análise: {
 	‘Tabela de análise’[‘Não Terminal’][‘Terminal’] = ‘Valor’
