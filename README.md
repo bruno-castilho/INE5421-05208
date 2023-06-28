@@ -280,7 +280,13 @@ Os seguintes algoritmos devem ser implementados:
     ```
     print() -> None:
         Imprime árvore a partir de um nó.
-    ```  
+    ```
+
+## Modelagem
+  - Para a modelegem foi feito um diagrama UML.
+
+<diagrama UML>
+
 ## Tipos de arquivos de entrada
   - Gramáticas Regulares
     - Descreva a GR em um arquivo `.txt`, da seguinte forma:
