@@ -285,7 +285,7 @@ Os seguintes algoritmos devem ser implementados:
 ## Modelagem
   - Para a modelegem foi feito um diagrama UML.
 
-![My Image](Projeto LF.jpeg)
+![My Image](ProjetoLF.png)
 
 ## Tipos de arquivos de entrada
   - Gramáticas Regulares
