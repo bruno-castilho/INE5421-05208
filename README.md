@@ -283,7 +283,7 @@ Os seguintes algoritmos devem ser implementados:
     ```
 
 ## Modelagem
-  - Para a modelegem foi feito um diagrama UML.
+  - Para a modelegem foi feito um diagrama.
 
 ![My Image](ProjetoLF.png)
 
