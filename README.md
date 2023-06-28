@@ -7,6 +7,13 @@ UNIVERSIDADE FEDERAL DE SANTA CATARINA
 CENTRO TECNOLÓGICO
 CURSO DE GRADUAÇÃO EM CIÊNCIAS DA COMPUTAÇÃO
 </h1>
+</br>
+</br>
+</br>
+<h3>
+  Gabriel Dutra, Bruno da Silva Castilho e Rafael Begnini de Castilhos
+</h3>
+
 
 </br>
 
