@@ -107,13 +107,39 @@ Os seguintes algoritmos devem ser implementados:
         Ajusta nome dos estados do autômato como 's''numero'.
     ```
     ## ER
-
+       - Métodos
+    ```
+    replaceSymbols() -> Str:
+        Troca operações ? e + para seus equivalentes
+            a? = (a | &)
+            a+ = a.a*
+    ```
+    ```        
+    reverseParenthesis(index: list) -> Str or None: 
+        Retorna uma sentença.
+    ```
+    ```   
+    putConcatenation(er: str) -> Str:
+        Retorna er com '.' entre os símbolos.
+    ```
+    ```
+    getErAdapted() -> Str:
+        Retorna er com símbolos alterados, '.'  e '#' no final.
+    ```
+    ```    
+    print() -> None:
+        Imprime a er original.
+    ```
     ## GLC
-
+       - Métodos
+         
     ## GR
-
+       - Métodos
+         
     ## Node
-
+       - Métodos
+         
+         
 ## Tipos de arquivos de entrada
   - Gramáticas Regulares
     - Descreva a GR em um arquivo `.txt`, da seguinte forma:
