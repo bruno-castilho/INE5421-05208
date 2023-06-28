@@ -13,9 +13,13 @@ CURSO DE GRADUAÇÃO EM CIÊNCIAS DA COMPUTAÇÃO
 <h3 align="center">
   Gabriel Dutra, Bruno da Silva Castilho e Rafael Begnini de Castilhos
 </h3>
-
-
 </br>
+</br>
+<p align="center">
+  28 de Junho de 2023
+</p>
+</br>
+
 
 # Trabalho: Manipulação de Linguagens Regulares e Linguagens Livres de Contexto
 1. Objetivo do Trabalho:
