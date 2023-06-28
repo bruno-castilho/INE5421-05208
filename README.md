@@ -87,10 +87,10 @@ Os seguintes algoritmos devem ser implementados:
     
      ```
     Produções: {
-	  ‘Cabeça de produção’: [{‘n’, ‘t’}]
+	  ['P->KVC', 'K->cK', 'K->&', 'V->vV', 'V->F', 'F->fP;F', 'F->&', 'C->bVCe', 'C->d;C', 'C->&']
     }
     ```
-    Para todas as cabeças de produção, cria-se uma chave em um dicionario que aponta para uma lista, contendo dicionários para cada produção, com duas chaves ‘n’ que aponta para o não terminal da produção,  e ‘t’ que aponta para o terminal. Caso a produção seja apenas um terminal, o dicionario tera apenas a chave ‘t’ apontando para o mesmo.
+    As produções são armazenadas como strings em uma lista, na qual o início é a cabeça de pordução, logo após é o símbolo "->", então uma formação da cabeça.  
     ```
     Tabela de Análise: {
 	‘Tabela de análise’[‘Não Terminal’][‘Terminal’] = ‘Valor’
