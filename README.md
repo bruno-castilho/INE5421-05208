@@ -43,18 +43,6 @@ Os seguintes algoritmos devem ser implementados:
   ser implementados os algoritmos para cálculo dos conjuntos First e Follow, Fatoração e Eliminação de Recursão à esquerda 
 
 
-Observações:
-- As entradas podem ser feitas via arquivo ou interface, a critério do grupo;
-- Os resultados intermediários devem poder ser salvos. Exemplo: um AFND convertido para AFD deve poder ser unido com outro AFD, ou ainda poder ser minimizado;
-- Para épsilon use a notação &;
-- Este trabalho é justamente para aprender a lidar com Expressões Regulares.
-Logo, não deve-se fazer uso de bibliotecas de Regex.
-- AFs podem ser apresentados na forma de tabelas de transição e ou diagramas de
-transição, a escolha do grupo;
-- Todos os AFs (intermediários ou resultantes) devem ser reutilizáveis (passíveis de
-Edição)
-
-
 ## Dependências
   - Projeto desenvolvido na linguagem de programação python, para a instalação do interpretador execute o seguinte comando:
     ```
