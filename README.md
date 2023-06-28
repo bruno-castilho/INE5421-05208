@@ -135,11 +135,72 @@ Os seguintes algoritmos devem ser implementados:
          
     ## GR
        - Métodos
-         
+    ```
+    getN() -> List:
+        Retorna lista de não terminais.
+    ```
+    ```
+    getT() -> List:
+        Retorna lista de terminais.
+    ```
+    ```
+    getP() -> Dict:
+        Retorna dicionário que mapeia produções de cada não terminal.
+    ```
+    ```  
+    getS() -> Str:
+        Retorna símbolo inicial da gramática.
+    ```
+    ```
+    print() -> None:
+        Imprime a gramática.
+    ```
     ## Node
        - Métodos
-         
-         
+    ```
+    isNullable() -> Boolean:
+        Retorna se no é nullable ou não.
+    ```
+    ```
+    getLastpos() -> List:
+        Retorna lastpos.
+    ```
+    ```
+    getFirstpos() -> List:
+        Retorna firstpos.
+    ```
+    ``` 
+    getLeftChild() -> Node:
+        Retorna nó filho á esquerda. 
+    ```
+    ```
+    getRightChild() -> Node:
+        Retorna nó filho á direita. 
+    ```
+    ```
+    checkNullable() -> Boolean:
+        Identifica se nó é nullable.
+    ```
+    ```
+    calculateLastpos() -> List:
+        Calcula lastpos.
+    ```
+    ```
+    calculateFirstpos() -> List:
+        Calcula firspos.
+    ```
+    ```
+    calculateFollowpos(followpos: dict) -> None:
+        Calcula followpos em um nó.
+    ```
+    ```
+    followpos(followpos: dict) -> None:
+        #Percorre a árvore em profundidade, fazendo o cálculo de todos os Followpos.
+    ```
+    ```
+    print() -> None:
+        Imprime árvore a partir de um nó.
+    ```  
 ## Tipos de arquivos de entrada
   - Gramáticas Regulares
     - Descreva a GR em um arquivo `.txt`, da seguinte forma:
