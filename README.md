@@ -67,7 +67,14 @@ Os seguintes algoritmos devem ser implementados:
     - Node, uma classe que representa um node utilizado principalmente formação da árvore de derivação.
    
     ## AF
-    
+      ```
+      transições: {
+      ‘estado’: {‘simbolo’:’estado’}
+      }
+      ```
+      Para todos os estados, cria-se uma chave em um dicionário que aponta para outro dicionário contendo chaves para todos os simbolos do automato, apontando para o estado alcançado pela transição, no caso de não determinísticos uma lista de estados não alcançados. Estados mortos em AFD são representados por None e nos AFND como uma lista vazia.
+      
+
     ## ER
     
     ## GLC
