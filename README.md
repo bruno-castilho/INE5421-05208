@@ -65,8 +65,17 @@ Os seguintes algoritmos devem ser implementados:
     - GLC, uma classe que representa gramáticas livres de contexto, possuindo atributos como nao terminais, terminais, producoes, simbolo inicial, mapeamento e tabela de análise.
     - GR, uma classe na qual representa gramáticas regulares, seus atibutos são separados em uma lista de não terminais, uma lista de terminais, um dicionário que mapeia produções de cada não terminal e um símbolo inicial da gramática.
     - Node, uma classe que representa um node utilizado principalmente formação da árvore de derivação.
-   
+  - Para facilitar entendimento, alguns atributos serão descritos a seguir:
+
     ## AF
+
+      ```
+      type: {
+	0 - AFD
+      	1 - AFND
+      }
+        
+      ```
       ```
       transições: {
       ‘estado’: {‘simbolo’:’estado’}
