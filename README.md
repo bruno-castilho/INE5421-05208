@@ -67,7 +67,45 @@ Os seguintes algoritmos devem ser implementados:
     - Node, uma classe que representa um node utilizado principalmente formação da árvore de derivação.
    
     ## AF
-
+      - Métodos
+    ```
+    getType() -> Int:
+        Retorna tipo do autômato.
+            0: AFD
+            1: AFND
+    ```
+    ```
+    getStates() -> List:
+        Retorna lista de estados.
+    ```
+    ``` 
+    getInitialState() -> Str:
+        Retorna estado inicial.
+    ```
+    ``` 
+    getSymbols() -> List:
+        Retorna lista de simbolos.
+    ```
+    ``` 
+    getFinalStates() -> List:
+        Retorna lista de estados finais.
+    ```
+    ``` 
+    getTransitions() -> Dict:
+        Retorna dicionário com todas as transições.
+    ```
+    ``` 
+    getTransition(state: str, symbol: str) -> Str:
+        Retorna um estado.
+    ```
+    ``` 
+    print() -> None:
+        Imprime autômato em forma de tabela.
+    ```
+    ``` 
+    adjust(s: str) -> None:
+        Ajusta nome dos estados do autômato como 's''numero'.
+    ```
     ## ER
 
     ## GLC
