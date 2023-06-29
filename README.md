@@ -1,3 +1,26 @@
+<p align="center">
+<img align="center" src="https://portalpadrao.ufma.br/ineof/imagens/logo-ufsc.png/@@images/84622670-9bb9-4fee-9460-dcfd76b7e33f.png" alt="UFSC logo" width="200" height="250">
+</p>
+
+<h1 align="center">
+UNIVERSIDADE FEDERAL DE SANTA CATARINA<br />
+CENTRO TECNOLÓGICO<br />
+CURSO DE GRADUAÇÃO EM CIÊNCIAS DA COMPUTAÇÃO
+</h1>
+</br>
+</br>
+</br>
+<h3 align="center">
+  Gabriel Dutra, Bruno da Silva Castilho e Rafael Begnini de Castilhos
+</h3>
+</br>
+</br>
+<p align="center">
+  28 de Junho de 2023
+</p>
+</br>
+
+
 # Trabalho: Manipulação de Linguagens Regulares e Linguagens Livres de Contexto
 1. Objetivo do Trabalho:
 O objetivo deste trabalho é a implementação dos algoritmos relacionados à manipulação
@@ -20,18 +43,6 @@ Os seguintes algoritmos devem ser implementados:
   ser implementados os algoritmos para cálculo dos conjuntos First e Follow, Fatoração e Eliminação de Recursão à esquerda 
 
 
-Observações:
-- As entradas podem ser feitas via arquivo ou interface, a critério do grupo;
-- Os resultados intermediários devem poder ser salvos. Exemplo: um AFND convertido para AFD deve poder ser unido com outro AFD, ou ainda poder ser minimizado;
-- Para épsilon use a notação &;
-- Este trabalho é justamente para aprender a lidar com Expressões Regulares.
-Logo, não deve-se fazer uso de bibliotecas de Regex.
-- AFs podem ser apresentados na forma de tabelas de transição e ou diagramas de
-transição, a escolha do grupo;
-- Todos os AFs (intermediários ou resultantes) devem ser reutilizáveis (passíveis de
-Edição)
-
-
 ## Dependências
   - Projeto desenvolvido na linguagem de programação python, para a instalação do interpretador execute o seguinte comando:
     ```
@@ -46,6 +57,60 @@ Edição)
         ```
         pip3 install pandas
         ```
+
+# Estrutura de dados
+  - As estruturas utilizadas para o funcionamento do projeto foram separadas no diretório "structures", elas são explicadas a seguir:
+    - AF, uma classe na qual representa automatos finitos, no qual posui atributos de estados, estado inicial, estado final, tipo (AFD ou AFND), simbolos e transições.
+    - ER, uma classe representando expressões regulares, o único atributo dela é "er", no qual é uma string que representa a expressão.
+    - GLC, uma classe que representa gramáticas livres de contexto, possuindo atributos como nao terminais, terminais, producoes, simbolo inicial, mapeamento e tabela de análise.
+    - GR, uma classe na qual representa gramáticas regulares, seus atibutos são separados em uma lista de não terminais, uma lista de terminais, um dicionário que mapeia produções de cada não terminal e um símbolo inicial da gramática.
+    - Node, uma classe que representa um node utilizado principalmente formação da árvore de derivação.
+  - Para facilitar o entendimento, alguns atributos serão descritos a seguir:
+
+    ## AF
+
+      ```
+      Tipo: {
+      ‘0’ - AFD
+      ‘1’ - AFND
+      }
+      ```
+      O tipo de um autômato finito pode variar, e a forma como cada um é tratado e as funções que o acompanham são distintas, logo ocorreu a separação em "type" = 0 para deterministico e  "type" = 1 para não deterministico.
+      ```
+      Transições: {
+      ‘estado’: {‘simbolo’:’estado’}
+      }
+      ```
+      Para todos os estados, cria-se uma chave em um dicionário que aponta para outro dicionário contendo chaves para todos os simbolos do automato, apontando para o estado alcançado pela transição, no caso de não determinísticos uma lista de estados. Estados mortos em AFD são representados por None e nos AFND como uma lista vazia.
+    
+    ## GLC
+    
+     ```
+    Produções: {
+	  ['P->KVC', 'K->cK', 'K->&', 'V->vV', 'V->F', 'F->fP;F', 'F->&', 'C->bVCe', 'C->d;C', 'C->&']
+    }
+    ```
+    As produções são armazenadas como strings em uma lista, na qual o início é a cabeça de produção, logo após é o símbolo "->", então uma formação da cabeça.  
+    ```
+    Tabela de Análise: {
+	‘Tabela de análise’[‘Não Terminal’][‘Terminal’] = ‘Valor’
+    }
+    ```
+    A tabela de análise é um dicionário, criado para realizar análises referentes ao comportamento de não terminais com terminais, logo para cada relacionamento é atribuido um valor, então usada para avaliar sentenças.
+    
+    ## GR
+    ```
+    Produções: {
+	  ‘Cabeça de produção’: [{‘n’, ‘t’}]
+    }
+    ```
+    Para todas as cabeças de produção, cria-se uma chave em um dicionario que aponta para uma lista, contendo dicionários para cada produção, com duas chaves ‘n’ que aponta para o não terminal da produção,  e ‘t’ que aponta para o terminal. Caso a produção seja apenas um terminal, o dicionario tera apenas a chave ‘t’ apontando para o mesmo.
+
+    
+## Modelagem
+  - Para a modelegem foi feito um diagrama.
+
+![My Image](ProjetoLF.png)
 
 ## Tipos de arquivos de entrada
   - Gramáticas Regulares
