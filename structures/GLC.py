@@ -19,7 +19,7 @@ class GLC():
         Símbolo inicial da gramática.
 
     mapeamento : Dict
-        Dicionário que mapea as produções.
+        Dicionário que mapeia as produções.
 
     tabela_analise : Multi List
         Tabela criada para análise da gramática.
@@ -38,47 +38,47 @@ class GLC():
     
     display()
 
-    reconhecer()
+    reconhecer() -> Bool
 
-    criar_tabela_de_analise()
+    criar_tabela_de_analise() -> Dict
 
-    isLL1()
+    isLL1() -> List
 
-    init_analysis_table()
+    init_analysis_table() -> Dict
 
-    map_productions()
+    map_productions() -> Dict
 
-    calculate_firsts()
+    calculate_firsts() -> Set
 
-    split_into_symbols()
+    split_into_symbols() -> List
 
-    get_first_symbol()
+    get_first_symbol() -> String
 
-    calculate_follows()
+    calculate_follows() -> Set
 
-    first_of_sequence()
+    first_of_sequence() -> Set
 
     fatorar()
 
-    remover_recursao_esquerda_indireta()
+    remover_recursao_esquerda_indireta() -> GLC
 
-    remover_recursao_esquerda_direta()
+    remover_recursao_esquerda_direta() -> GLC
 
-    pegar_primeiro_simbolo()
+    pegar_primeiro_simbolo() -> Tuple
 
-    verificar_existencia_nao_determinismo_direto()
+    verificar_existencia_nao_determinismo_direto() -> Tuple
 
     resolver_nao_determinismo_direto()
 
-    encontrar_nao_determinismo_indireto()
+    encontrar_nao_determinismo_indireto() -> Bool
 
-    subir_producoes()
+    subir_producoes() -> Tuple
 
-    pegar_terminais_a_esquerda()
+    pegar_terminais_a_esquerda() -> Tuple
 
-    filtrar_lista_de_terminais()
+    filtrar_lista_de_terminais() -> List
 
-    mapear_terminais()
+    mapear_terminais() -> Dict
     """
     def __init__(self, nao_terminais, terminais, producoes, simbolo_inicial):
         self.nao_terminais = nao_terminais
@@ -124,16 +124,14 @@ class GLC():
         if self.tabela_analise == None:
             print("Erro: Não foi possível criar a tabela de análise porque a GLC não é LL(1)")
             return False
-        # INSERIR: APPEND
-        # RETIRAR: POP
-        # TOPO: STACK[len(stack)-1]
+
         sentenca += '$'
         sentenca = split_into_symbols(sentenca,self.terminais + ['$'],self.nao_terminais)
         stack = []
         stack.append('$')
         stack.append(self.simbolo_inicial)
 
-        # INDICE PARA AVALIAR A SENTENCA
+        # Índice para avaliar a sentença
         cabecote = 0
         while(True):
             print(stack)
@@ -142,11 +140,11 @@ class GLC():
                 # Aceite
                 if topo == '$':
                     return True
-                # TOPO == CABECOTE != $
+                # Topo == cabeçote != $
                 if topo in self.terminais:
-                    # DESEMPILHE O TOPO
+                    # Desempilha o topo
                     antigo_topo = stack.pop()
-                    # AVANCA NA ENTRADA
+                    # Avança a entrada
                     cabecote += 1
                 else:
                     print("ERRO: Esperava um terminal no topo e no cabeçote")
@@ -157,7 +155,7 @@ class GLC():
                     print("ERRO: Tabela[%s][%s] = Erro" % (topo, sentenca[cabecote]))
                     return False
                 else:
-                    # RETIRA O TOPO DA PILHA
+                    # Retira o topo da pilha
                     stack.pop()
                     producao = self.mapeamento[acao]
                     simbolos = producao.split('->')
@@ -185,9 +183,9 @@ def criar_tabela_de_analise(glc):
     glc.mapeamento = map
     analysis_table = init_analysis_table(glc.get_terminais(), glc.get_nao_terminais())
 
-    # PREENCHENDO A TABELA DE ANALISE
-    # ANALISAR SE JÁ NAO EXISTE UMA ENTRADA DEFINIDA QUANDO FOR COLOCAR ALGO
-    # SE EXISTIR, INDIQUE QUE HOUVE CONFLITO NA CÉLULA
+    # Preenche tabela de análise
+    # Analisar se já não existe uma entrada definida quando for colocar algo
+    # Se existir, indique que houve conflito
     for non_terminal in analysis_table.keys():
         for production in glc.producoes[non_terminal]:
             number = map[non_terminal+'->'+production]
@@ -197,7 +195,7 @@ def criar_tabela_de_analise(glc):
                 if analysis_table[non_terminal][a] == -1:
                     analysis_table[non_terminal][a] = number
                 else:
-                    # CONFLITO
+                    # Conflito
                     print("Conflito em T[%s,%s]" % (non_terminal,a))
                     return None
             if '&' in first_alfa:
@@ -254,131 +252,129 @@ def map_productions(glc):
     return map
 
 def calculate_firsts(glc):
-    # CALCULA O FIRST PARA CADA SÍMBOLO   
+    # Calcula o first para cada símbolo  
     #{X : FIRST(X) for X} in (N U T)
     first = {s: set((s,)) for s in glc.terminais + ['&']}
     for X in glc.nao_terminais:
         first[X] = set()
 
-    new_added = True
-    while new_added:
-        new_added = False
-        for head, bodies in glc.producoes.items():
-            for body in bodies:
-                symbol = get_first_symbol(body, glc.terminais, glc.nao_terminais)
+    nova_added = True
+    while nova_added:
+        nova_added = False
+        for cabeca, corpos in glc.producoes.items():
+            for corpo in corpos:
+                symbol = get_first_symbol(corpo, glc.terminais, glc.nao_terminais)
 
                 if symbol in glc.terminais + ['&']:
-                    new_first = first[head].union(first[symbol])
+                    nova_first = first[cabeca].union(first[symbol])
 
                 elif symbol in glc.nao_terminais:
                     f = first[symbol]
-                    new_first = first[head].union(f - set('&'))
+                    nova_first = first[cabeca].union(f - set('&'))
 
                     while '&' in f:
-                        # PEGA O CORPO DA PRODUCAO SEM O PRIMEIRO SÍMBOLO
-                        body = body[len(symbol):]
-                        if body == '':
-                            new_first = new_first.union('&')
+                        # Pega o corpo da produção sem o primeiro símbolo
+                        corpo = corpo[len(symbol):]
+                        if corpo == '':
+                            nova_first = nova_first.union('&')
                             break
 
-                        symbol = get_first_symbol(body, glc.terminais, glc.nao_terminais)
+                        symbol = get_first_symbol(corpo, glc.terminais, glc.nao_terminais)
                         f = first[symbol]
-                        new_first = new_first.union(f - set('&'))
+                        nova_first = nova_first.union(f - set('&'))
 
                 else:
                     raise Exception(f'Symbol {symbol} not in GLC (N U T)')
 
-                if new_first != first[head]:
-                    new_added = True
-                    first[head] = new_first
+                if nova_first != first[cabeca]:
+                    nova_added = True
+                    first[cabeca] = nova_first
 
     return first
 
-def split_into_symbols(body, T, N):
-    # DIVIDE O CORPO DE UMA PRODUÇÃO EM UMA LISTA DE SÍMBOLOS EM T U N
-    symbols = []
-    while len(body) > 0:
-        symbol = get_first_symbol(body, T, N)
-        symbols.append(symbol)
+def split_into_symbols(corpo, T, N):
+    symbols = []  # Lista vazia para armazenar os símbolos
 
-        body = body[len(symbol) :]
+    while len(corpo) > 0: # Enquanto o comprimento do corpo for maior que zero
+        symbol = get_first_symbol(corpo, T, N) # Obtém o primeiro símbolo do corpo usando a função get_first_symbol, passando corpo, T e N como argumentos
+        symbols.append(symbol) # Adiciona o símbolo obtido à lista de símbolos
+        corpo = corpo[len(symbol):] # Atualiza o corpo, removendo o símbolo obtido
 
     return symbols
 
-def get_first_symbol(body, T, N):
-    # OBTEM O PRIMEIRO SÍMBOLO DO CORPO DE UMA PRODUÇÃO
-    # CORRESPONDE A UM SÍMBOLO EM T U N
+def get_first_symbol(corpo, T, N):
+    # Obtêm o primeiro símbolo do corpo de uma produção
+    # Corresponde a um símbolo em T U N
     symbols = T + N
     symbols.append('&')
-    for i, _ in enumerate(body):
-        if body[: i + 1] in symbols:
-            return body[: i + 1]
+    for i, _ in enumerate(corpo):
+        if corpo[: i + 1] in symbols:
+            return corpo[: i + 1]
 
-    return body
+    return corpo
 
 
 def calculate_follows(glc, firsts=None):
-    # CALCULA O FOLLOW PARA CADA SÍMBOLO   
+    # Calcula o follow para cada símbolo   
     # {X : FOLLOW(X) for X} in (N U T)
 
-    # DEVE CALCULAR O FIRST SE AINDA NÃO EXISTE
+    # Deve calcular o first se ainda não existe
     if firsts is None:
         firsts = calculate_firsts(glc)
 
     follows = {s: set(()) for s in glc.nao_terminais}
     follows[glc.simbolo_inicial] = set('$')
 
-    # DICIONARIO PARA GUARDAR OS CASOS: FOLLOW(A) EM FOLLOW(B)
-    # SERA GUARDADADA DESSA FORMA: inside[A] = [B]
+    # Dicionário para guardar os casos: FOLLOW(A) em FOLLOW(B)
+    # Será armazenado dessa forma: inside[A] = [B]
     inside = {n: set(()) for n in glc.nao_terminais}
 
-
-    new_added = True
-    while(new_added):
-        new_added = False
-        for head, bodies in glc.producoes.items():
-            for body in bodies:
-                symbols = split_into_symbols(body, glc.terminais, glc.nao_terminais)
+    nova_added = True
+    while(nova_added):
+        nova_added = False
+        for cabeca, corpos in glc.producoes.items():
+            for corpo in corpos:
+                symbols = split_into_symbols(corpo, glc.terminais, glc.nao_terminais)
                 for i in range(len(symbols)):
-                    # CASO 1: PRODUCAO X -> aBC ou X -> ABC
+                    # caso 1: produção X -> aBC ou X -> ABC
                     if symbols[i] in glc.nao_terminais:
                         target = symbols[i]
-                        # PARA VERIFICAR SE HOUVE MUDANCA
+                        # verifica se houve mudanças
                         old = follows[target]
 
                         beta = ''.join(symbols[i+1:])
-                        # CASO 1.1: BETA É DIFERENTE DA SENTENCA VAZIA
-                        # ACAO: FIRST(BETA)/{&} EM FOLLOW(TARGET)
+                        # caso 1.1: BETA é diferente da sentença vazia
+                        # ação: FIRST(BETA)/{&} em FOLLOW(TARGET)
                         if beta != '':
                             symbols_beta = split_into_symbols(beta, glc.terminais, glc.nao_terminais)
                             first_beta = first_of_sequence(beta, firsts, symbols_beta)
 
-                            # FIRST(BETA)\{&} EM FOLLOW(TARGET)
+                            # FIRST(BETA)\{&} em FOLLOW(TARGET)
                             follows[target].update((first_beta - set('&')))
                             if '&' in first_beta:
-                                # FOLLOW(HEAD) EM FOLLOW(TARGET)
-                                if head != target:
-                                    inside[head].add(target)
-                        # CASO 1.2: BETA É IGUAL A SENTENCA VAZIA (X->alfaB)
-                        # ACAO: FOLLOW(HEAD) EM FOLLOW(TARGET)
+                                # FOLLOW(cabeca) em FOLLOW(TARGET)
+                                if cabeca != target:
+                                    inside[cabeca].add(target)
+                        # caso 1.2: BETA é igual a sentença vazia (X->alfaB)
+                        # ação: FOLLOW(cabeca) em FOLLOW(TARGET)
                         else:
-                            if head != target:
-                                inside[head].add(target)
+                            if cabeca != target:
+                                inside[cabeca].add(target)
                         if old != follows[target]:
-                            new_added = True
+                            nova_added = True
 
-    new_added = True
-    while(new_added):
-        new_added = False
+    nova_added = True
+    while(nova_added):
+        nova_added = False
         for non_terminal in inside.keys():
             for dependent in inside[non_terminal]:
                 old = follows[dependent]
                 follows[dependent].update(follows[non_terminal])
                 if old != follows[dependent]:
-                    new_added = True
+                    nova_added = True
     return follows
 
-# Se A→αBβ, ENTÃO TUDO EM FIRST(β) EXCETO & ESTÁ EM FOLLOW(B).
+# Se A→αBβ, então tudo em first(β) exceto & está em follow(B).
 def first_of_sequence(beta, firsts, symbols):
     first_sequence = set()
     for i in range(len(symbols)):
@@ -393,10 +389,10 @@ def first_of_sequence(beta, firsts, symbols):
 
 def fatorar(glc):
     j = 0
-    # RESOLVE PRIMEIRO O NAO DETERMINISMO DIRETO
+    # Resolve o primeiro não determinismo direto
     for nao_terminal in glc.nao_terminais:
         j = resolver_nao_determinismo_direto(glc, nao_terminal, j)
-    # SE ENCONTRAR UMA NAO DETERMINISMO INDIRETO, RESOLVA-O
+    # Se encontrar um não determinismo indireto, resolva
     # print(glc.producoes)
     contador = 0
     for nao_terminal in glc.nao_terminais:
@@ -439,47 +435,63 @@ def remover_recursao_esquerda_indireta(glc):
 
 
 def remover_recursao_esquerda_direta(glc):
-    new_prods = dict()
-    for head, bodies in glc.producoes.items():
-        recursive_bodies = []
-        for body in bodies:
-            if body[0] == head:
-                recursive_bodies.append(body)
+    novas_producoes = dict()  # Dicionário vazio para armazenar as novas produções
 
-        if recursive_bodies:
-            new_head = head + "'"
-            new_head_bodies = ['&']
-            head_bodies = []
-            for body in bodies:
-                if body in recursive_bodies:
-                    new_head_bodies.append(body[1:] + new_head)
+    for cabeca, corpos in glc.producoes.items():
+        recursiva_corpos = []  # Lista vazia para armazenar corpos recursivos
+
+        for corpo in corpos:
+            if corpo[0] == cabeca:  # Verifica se o corpo começa com a mesma cabeça
+                recursiva_corpos.append(corpo)  # Adiciona o corpo à lista de corpos recursivos
+
+        if recursiva_corpos:
+            nova_cabeca = cabeca + "'"  # Cria uma nova cabeça para as produções recursivas
+            nova_cabeca_corpos = ['&']  # Lista com um corpo vazio '&' para a nova cabeça
+            cabeca_corpos = []  # Lista para armazenar as produções modificadas
+
+            for corpo in corpos:
+                if corpo in recursiva_corpos:
+                    nova_cabeca_corpos.append(corpo[1:] + nova_cabeca)
+                    # Adiciona o corpo sem o primeiro símbolo e com a nova cabeça
                 else:
-                    head_bodies.append(body + new_head)
+                    cabeca_corpos.append(corpo + nova_cabeca)
+                    # Adiciona o corpo original com a nova cabeça
 
-            new_prods[head] = head_bodies
-            new_prods[new_head] = new_head_bodies
+            novas_producoes[cabeca] = cabeca_corpos  # Atualiza as produções da cabeça original
+            novas_producoes[nova_cabeca] = nova_cabeca_corpos  # Adiciona as novas produções com a nova cabeça
 
         else:
-            new_prods[head] = bodies
+            novas_producoes[cabeca] = corpos  # Mantém as produções da cabeça original
 
-    glc.nao_terminais = list(set(new_prods.keys()))
-    glc.producoes = new_prods
+    glc.nao_terminais = list(set(novas_producoes.keys()))
+    # Atualiza a lista de não-terminais da gramática com as chaves do dicionário de novas produções
+    glc.producoes = novas_producoes  # Atualiza as produções da gramática com as novas produções
 
     return glc
 
 def pegar_primeiro_simbolo(producao, glc):
-    simbolos = ''
-    indice = 0
+    simbolos = ''  # Variável para armazenar os símbolos percorridos
+    indice = 0  # Variável para armazenar o índice do primeiro símbolo
+    
     for simbolo in producao:
-        simbolos += simbolo
-        indice += 1
+        simbolos += simbolo  # Concatena o símbolo atual à sequência de símbolos percorridos
+        indice += 1  # Incrementa o índice
+        
         if simbolos in glc.nao_terminais or simbolos in glc.terminais:
-            return (simbolos, indice)
-    return (None,-1)
+            # Verifica se a sequência de símbolos é um não-terminal ou um terminal da gramática
+            return (simbolos, indice)  # Retorna uma tupla com a sequência de símbolos e o índice
+        
+    return (None, -1)  # Caso nenhum símbolo seja encontrado, retorna uma tupla com None e -1
 
 def verificar_existencia_nao_determinismo_direto(glc, producoes):
+    # Chama a função pegar_terminais_a_esquerda, passando glc e producoes como argumentos e atribui os resultados às variáveis terminais_producoes e terminais_a_esquerda
     (terminais_producoes,terminais_a_esquerda) = pegar_terminais_a_esquerda(glc, producoes)
+
+    # Chama a função filtrar_lista_de_terminais, passando terminais_a_esquerda e terminais_producoes como argumentos e atribui o resultado à variável lista_filtrada
     lista_filtrada = filtrar_lista_de_terminais(terminais_a_esquerda, terminais_producoes)
+
+    # Retorna uma tupla com dois elementos: o primeiro elemento é uma expressão booleana que verifica se a lista_filtrada não está vazia,
+    # e o segundo elemento é a própria lista_filtrada
     return (lista_filtrada != [], lista_filtrada)
 
 def resolver_nao_determinismo_direto(glc, nao_terminal, j):
@@ -488,17 +500,17 @@ def resolver_nao_determinismo_direto(glc, nao_terminal, j):
         mapeamento = mapear_terminais(lista_filtrada)
         for terminal in mapeamento.keys():
 
-            # CRIANDO UM NOVO NAO TERMINAL PARA SUBSTITUIR O RESTO
+            # Cria um novo não terminal para substituir
             novo_nao_terminal = 'X_' + str(j)
             j += 1
 
-            # ADICIONANDO O NOVO NAO TERMINAL
+            # Adiciona novo não terminal
             glc.nao_terminais.append(novo_nao_terminal)
             glc.producoes[novo_nao_terminal] = []
 
-            # REMOVENDO AS PRODUCOES VELHAS
+            # Remove produções velhas
             for producao_alvo in mapeamento[terminal]:
-                # PROCURANDO O INDICE DO TERMINAL NA PRODUCAO
+                # Procura o índice do terminal na produção
                 (simbolo, indice) = pegar_primeiro_simbolo(producao_alvo, glc)
 
                 resto = producao_alvo[indice::]
@@ -506,14 +518,13 @@ def resolver_nao_determinismo_direto(glc, nao_terminal, j):
                 if resto == '':
                     resto = '&'
 
-                # REMOVENDO A PRODUCs = %s" % novas_producoes)
                 glc.producoes[nao_terminal].remove(producao_alvo)
 
-                # SUBSTITUINDO PELA PRODUCAO NOVA
+                # Substituindo pela nova produção
                 if (terminal + novo_nao_terminal) not in glc.producoes[nao_terminal]:
                     glc.producoes[nao_terminal].append(terminal + novo_nao_terminal)
 
-                # ADICIONANDO O RESTO DE CADA PRODUCAO VELHA COMO PRODUCAO DO NOVO NAO TERMINAL
+                # Adicionando o resto de cada produção velha como produção do novo não terminal
                 if resto not in glc.producoes[novo_nao_terminal]:
                     glc.producoes[novo_nao_terminal].append(resto)
     return j
@@ -533,19 +544,19 @@ def encontrar_nao_determinismo_indireto(glc, nao_terminal):
             producoes_primeiro_simbolo = glc.producoes[primeiro_simbolo]
             (producoes_subidas, relacao_entre_producoes) = subir_producoes(producao, producoes_primeiro_simbolo, indice)
 
-            # ADICIONANDO CADA PRODUCAO SUBIDA AS PRODUCOES TEMPORARIAS
+            # Adiciona cada produção subida para as produções temporais
             for producao_subida in producoes_subidas:
                 if producao_subida not in producoes_temporarias:
                     producoes_temporarias.append(producao_subida)
 
-            # ADICIONANDO A RELACAO ENTRE CADA PRODUCAO NOVA E ANTIGA
+            # Adiciona a relação entre cada produção nova e antiga
             for par in relacao_entre_producoes:
                 if par not in relacoes:
                     relacoes.append(par)
     (existe_nao_determinismo_direto, lista_filtrada) = verificar_existencia_nao_determinismo_direto(glc, producoes_temporarias)
     # print(lista_filtrada)
     if existe_nao_determinismo_direto:
-        # SUBSTITUINDO AS PRODUCOES ANTIGAS PELAS TEMPORARIAS
+        # Substitui produções antigas pelas temporarias
         for par in relacoes:
             producao_substituida = par[1]
             if producao_substituida in glc.producoes[nao_terminal]:
@@ -556,46 +567,54 @@ def encontrar_nao_determinismo_indireto(glc, nao_terminal):
     else:
         return False
 
-
 def subir_producoes(producao_candidata, producoes, indice_primeiro_simbolo):
-    novas_producoes = []
-    relacao_entre_producoes = []
+    novas_producoes = []  # Lista vazia para armazenar as novas produções
+    relacao_entre_producoes = []  # Lista vazia para armazenar pares de produções
+
     for producao in producoes:
         nova_producao = producao + producao_candidata[indice_primeiro_simbolo::]
-        par = (nova_producao, producao_candidata)
-        if nova_producao not in novas_producoes:
-            novas_producoes.append(nova_producao)
-        if par not in relacao_entre_producoes:
-            relacao_entre_producoes.append(par)
+        # Cria uma nova produção adicionando a parte restante da produção candidata após o primeiro símbolo
+        par = (nova_producao, producao_candidata)  # Cria um par (nova_producao, producao_candidata)
+        
+        if nova_producao not in novas_producoes:  # Verifica se a nova produção já está presente na lista de novas produções
+            novas_producoes.append(nova_producao)  # Adiciona a nova produção à lista de novas produções
+        
+        if par not in relacao_entre_producoes:  # Verifica se o par (nova_producao, producao_candidata) já está presente na lista de relações de produções
+            relacao_entre_producoes.append(par)  # Adiciona o par à lista de relações de produções
+
     return (novas_producoes, relacao_entre_producoes)
 
 def pegar_terminais_a_esquerda(glc, producoes):
-    terminais_a_esquerda = []
-    terminais_producoes = []
+    terminais_a_esquerda = []  # Lista vazia para armazenar os terminais à esquerda
+    terminais_producoes = []  # Lista vazia para armazenar pares (terminal, produção)
+    
     for producao in producoes:
-        (simbolo,indice) = pegar_primeiro_simbolo(producao, glc)
-        if simbolo == None:
+        (simbolo, indice) = pegar_primeiro_simbolo(producao, glc)  # Obtém o primeiro símbolo da produção e seu índice
+        if simbolo == None:  # Se o símbolo for None, pula para a próxima iteração do loop
             continue
-        if simbolo in glc.terminais:
-            par_simbolo_producao = (simbolo,producao)
-            par_simbolo_indice = (simbolo, indice)
-            terminais_producoes.append(par_simbolo_producao)
-            terminais_a_esquerda.append(simbolo)
+        if simbolo in glc.terminais:  # Verifica se o símbolo é um terminal da gramática
+            par_simbolo_producao = (simbolo, producao)  # Cria um par (terminal, produção)
+            par_simbolo_indice = (simbolo, indice)  # Cria um par (terminal, índice)
+            terminais_producoes.append(par_simbolo_producao)  # Adiciona o par (terminal, produção) à lista
+            terminais_a_esquerda.append(simbolo)  # Adiciona o terminal à lista de terminais à esquerda
+    
     return (terminais_producoes,terminais_a_esquerda)
 
 def filtrar_lista_de_terminais(terminais, terminais_producoes):
-    lista_filtrada = []
+    lista_filtrada = []  # Lista vazia para armazenar os pares filtrados
     for par in terminais_producoes:
         if terminais.count(par[0]) > 1 and par not in lista_filtrada:
-            lista_filtrada.append(par)
+            # Verifica se o terminal do par ocorre mais de uma vez na lista de terminais
+            # e se o par ainda não está presente na lista filtrada
+            lista_filtrada.append(par)  # Adiciona o par à lista filtrada
     return lista_filtrada
 
 def mapear_terminais(lista):
-    mapeamento = {}
+    mapeamento = {}  # Dicionário para armazenar o mapeamento de terminais
     for par in lista:
-        terminal = par[0]
-        if terminal not in mapeamento.keys():
-            mapeamento[terminal] = []
-        indice = par[1]
-        mapeamento[terminal].append(indice)
+        terminal = par[0]  # Obtém o primeiro elemento do par como o terminal
+        if terminal not in mapeamento.keys():  # Verifica se o terminal já existe no mapeamento
+            mapeamento[terminal] = []  # Se não existir, cria uma lista vazia para o terminal
+        indice = par[1]  # Obtém o segundo elemento do par como o índice
+        mapeamento[terminal].append(indice)  # Adiciona o índice à lista do terminal no mapeamento
     return mapeamento
